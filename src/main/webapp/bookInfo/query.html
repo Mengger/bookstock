@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<link href="../css/bootstrap.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/bookInfo/query.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<title>查询书本信息</title>
+</head>
+<body>
+<div style="margin:30px">
+	<h3>查询书本详情</h3>
+	<input type="text" id="book_id" >
+	<input type="button" id="submit_book_id" value="查询">
+	
+	<br>
+	
+	<div class="show_book_info">
+		<div>
+			<span>书本编号：</span>
+			<span id="book_id_info"></span>
+		</div>
+		<div>
+			<span>编号协议：</span>
+			<span id="book_protocl"></span>
+		</div>
+		<div>
+			<span>书本名称：</span>
+			<span id="book_name"></span>
+		</div>
+		<div>
+			<span>出版社：</span>
+			<span id="book_concern"></span>
+		</div>
+		<div>
+			<span>作者：</span>
+			<span id="book_author"></span>
+		</div>
+		<div>
+			<span>书本定价：</span>
+			<span id="order_prices"></span>
+		</div>
+		<div>
+			<span>书本页数：</span>
+			<span id="book_page_num"></span>
+		</div>
+	</div>
+	<div class="show_book_info">
+		<img alt="图片" id="book_photo_path" style="width:150px;height:250px;" src="">
+	</div>
+</div>
+<div id="background" class="modal-backdrop in hide loading"></div>
+<div class="hide loading" style="position: relative;left: 35%;top: 30%; z-index: 1250;display: block;">
+	<img src="../img/loading.gif" alt="loading.." />
+</div>
+</body>
+</html>
