@@ -1,8 +1,9 @@
 package com.chillax.service.impl;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chillax.dao.BookInfoDao;
@@ -16,14 +17,16 @@ public class BookInfoServiceImpl implements IbookInfoService {
 
 	private static final Logger log = LoggerFactory.getLogger(BookInfoServiceImpl.class);
 	
-	@Autowired
+	@Resource
 	private BookInfoDao bookInfoDao;
 	
+	@Override
 	public BookInfo queryDBbyBookId(String id) {
 		// TODO Auto-generated method stub
 		return bookInfoDao.queryBookInfoById(id);
 	}
 
+	@Override
 	public BookInfo queryInternetByBookId(String id) {
 		// TODO Auto-generated method stub
 		BookInfo bookInfo=new BookInfo();
