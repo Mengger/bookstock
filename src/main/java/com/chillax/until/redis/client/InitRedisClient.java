@@ -714,7 +714,7 @@ public class InitRedisClient {
 	public static void initRedisConfig() throws Exception {
 		try {
 			Properties p = new Properties();
-			p.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("redisConfig/redisConfig.properties"));
+			p.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("redisConfig.properties"));
 			String MaxActive=p.getProperty("MaxActive");
 			String MaxIdle=p.getProperty("MaxIdle");
 			String MaxWait=p.getProperty("MaxWait");
@@ -743,7 +743,7 @@ public class InitRedisClient {
 	public static CfgRedisServerBean[] initRedisServer()throws Exception{
 		try{
 			Properties p = new Properties();
-			p.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("redisConfig/redisConfig.properties"));
+			p.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("redisConfig.properties"));
 			List<CfgRedisServerBean> list=new ArrayList<CfgRedisServerBean>();
 			//加载主服务redis
 			int m_count=Integer.parseInt(p.getProperty("M_COUNT"));
