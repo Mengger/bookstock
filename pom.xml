@@ -187,5 +187,22 @@
 
 	<build>
 		<finalName>BookProject</finalName>
+		<plugins>
+			<!-- 引入jetty启动 -->
+			<plugin>
+			  <groupId>org.mortbay.jetty</groupId>
+			  <artifactId>jetty-maven-plugin</artifactId>
+			  <version>8.1.16.v20140903</version>
+			  <configuration>
+			  	<!-- 表示新代码的扫描时间间隔（秒），值 <= 0 表示不扫描 -->
+			  	<scanIntervalSeconds>5</scanIntervalSeconds>
+			  	<webApp>
+			  		<!-- contextPath 配置表示工程的虚拟目录名 -->
+			  		<contextPath></contextPath>
+			  	</webApp>
+			  </configuration>
+			</plugin>
+			
+		</plugins>
 	</build>
 </project>

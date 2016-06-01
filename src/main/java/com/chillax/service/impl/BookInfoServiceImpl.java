@@ -71,8 +71,14 @@ public class BookInfoServiceImpl implements IbookInfoService {
         		}
         	}else if(info.contains("原书售价：")){
         		int a=info.indexOf("原书售价：");
-        		String price=info.substring(a,a+11).replaceAll("元","").replace("：", "").replaceAll("s", "").replace(".", "").replaceAll("原书售价", "");
-            	bookInfo.setOrderPrices(Integer.valueOf(price));;
+        		String noDealPrice=info.substring(a,a+11).replaceAll("元","").replace("：", "").replaceAll("s", "").replaceAll("原书售价", "");
+        		int price=0;
+        		if(noDealPrice.contains(".")){
+        			price=Integer.valueOf(noDealPrice.replace(".", "").replace("<", "").replace("/", ""));
+        		}else{
+        			price=Integer.valueOf(noDealPrice.replace(".", "").replace("<", "").replace("/", ""))*100;
+        		}
+        		bookInfo.setOrderPrices(price);;
         	}
         }
         String images=StringRegexUntil.regexString(queryResult, "<div class=\"pic_box\" id=\"bigBookImg\">((?!</div>).)*</div>")[0];

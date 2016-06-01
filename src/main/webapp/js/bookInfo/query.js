@@ -8,7 +8,6 @@ $(document).ready(function(){
 	});
 	$(".show_book_info").hide();
 	$(".loading").hide();
-	
 });
 
 function showBookInfo(){
@@ -20,7 +19,7 @@ function showBookInfo(){
 	}
 	$(".loading").show();
 	$.ajax({
-		url:"/BookProject/bookInfo.json",
+		url:"../bookInfo.json",
 		dataType: 'json',
 		data:{
 			bookId:$("#book_id").val()
