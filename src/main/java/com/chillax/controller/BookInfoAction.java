@@ -43,4 +43,22 @@ public class BookInfoAction {
 		}
 		return rtn;
 	}
+	
+	@RequestMapping(method = RequestMethod.GET , value="/saveInfo.json")
+	@ResponseBody
+	public SingleResultDO<BookInfo> saveBookInfo(String bookId,String bookProtocl,String bookName,
+			String bookConcern,String bookAuthor,int orderPrices,String bookPageNum,String bookPhotoPath){
+		BookInfo book=new BookInfo();
+		book.setBookId(bookId);
+		book.setBookProtocl(bookProtocl);
+		book.setBookName(bookName);
+		book.setBookConcerm(bookConcern);
+		book.setOrderPrices(orderPrices);
+		book.setAuthor(bookAuthor);
+		book.setPageNum(bookPageNum);
+		book.setPhotoPath(bookPhotoPath);
+		bookInfoService.saveBookInfo(book);
+		return null;
+		
+	}
 }

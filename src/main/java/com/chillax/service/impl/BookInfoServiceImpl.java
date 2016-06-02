@@ -100,4 +100,10 @@ public class BookInfoServiceImpl implements IbookInfoService {
 		return bookInfo=queryInternetByBookId(id);
 	}
 
+	public boolean saveBookInfo(BookInfo book) {
+		int num=bookInfoDao.saveBookInfo(book);
+		System.out.println(num);
+		return false;
+	}
+
 }

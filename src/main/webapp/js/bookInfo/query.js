@@ -85,7 +85,7 @@ function showBookInfo(){
 function saveBookInfo(){
 	$(".loading").show();
 	$.ajax({
-		url:'',
+		url:'../saveInfo.json',
 		dataType:'json',
 		data:{
 			bookId:$("#book_id_info_input").val(),

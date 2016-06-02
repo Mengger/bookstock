@@ -1,3 +1,19 @@
+create table book_info( 
+	info_create_time  date not null comment  '创建时间', 
+	info_modify_time date not null  comment  '修改时间', 
+	book_id varchar(15) CHARACTER SET utf8 not null PRIMARY KEY comment '图书编号', 
+	book_protocl varchar(5) CHARACTER SET utf8 comment '编号协议(ISBN、ISSN、ISRC)', 
+	book_name varchar(100) CHARACTER SET utf8 not null comment '图书名称', 
+	author varchar(20) CHARACTER SET utf8 comment '作者', 
+	book_concerm  varchar(50) CHARACTER SET utf8 comment '出版社名称', 
+	status  Integer comment '图书状态(1.正常  0.停收)', 
+	book_type_id varchar(10) CHARACTER SET utf8 comment '图书类型id', 
+	order_prices Integer comment '定价(单位:分)', 
+	used_prices  Integer comment '二手书价(单位:分)', 
+	photo_path varchar(150) CHARACTER SET utf8 comment '照片地址', 
+	page_num varchar(5) CHARACTER SET utf8  comment '页数' 
+) comment '图书属性表' DEFAULT CHARSET=utf8;
+
 create table get_order(  
 	create_time  date not null comment  '创建时间',  
 	modify_time date not null  comment  '修改时间',  
@@ -9,53 +25,36 @@ create table get_order(
 	employee_id  Integer comment '雇员id',  
 	book_count Integer comment '图书数量',  
 	status Integer comment '订单状态(-1.订单作废 0.读取完毕 1.雇员回收完成)'
-) comment '订单详情表';
-
-create table book_info( 
-	info_create_time  date not null comment  '创建时间', 
-	info_modify_time date not null  comment  '修改时间', 
-	book_id varchar(15) not null PRIMARY KEY comment '图书编号', 
-	book_protocl varchar(5) comment '编号协议(ISBN、ISSN、ISRC)', 
-	book_name varchar(50) not null comment '图书名称', 
-	author varchar(20) comment '作者', 
-	book_concerm  varchar(50) comment '出版社名称', 
-	status  Integer comment '图书状态(1.正常  0.停收)', 
-	book_type_id varchar(10) comment '图书类型id', 
-	order_prices Integer comment '定价(单位:分)', 
-	used_prices  Integer comment '二手书价(单位:分)', 
-	photo_path varchar(50) comment '照片地址', 
-	page_num varchar(5) comment '页数' 
-) comment '图书属性表';
-
+) comment '订单详情表' DEFAULT CHARSET=utf8;
 
 create table employee_info( 
 	create_time  date not null comment  '创建时间',  
 	modify_time date not null  comment  '修改时间',  
 	id varchar(5) not null PRIMARY KEY comment '雇员id',
-	name varchar(16) comment '雇员名字',
+	name varchar(16) CHARACTER SET utf8  comment '雇员名字',
 	id_card varchar(20) comment '身份证号码',
-	birth_place varchar(50) comment '出生地',
+	birth_place varchar(150) CHARACTER SET utf8 comment '出生地',
 	pwd varchar(20) comment '密码',
 	manager_id varchar(5) comment '经理id',
 	area_id varchar(8) comment '区域id',
 	school_id varchar(8) comment '学校id',
-	photo_path varchar(50) comment '图片',
-	id_card_path varchar(50) comment '身份证图片',
-	info varchar(50) comment '备注信息(地址)'
-) comment '雇员信息表';
+	photo_path varchar(150) comment '图片',
+	id_card_path varchar(150) comment '身份证图片',
+	info varchar(150) CHARACTER SET utf8 comment '备注信息(地址)'
+) comment '雇员信息表' DEFAULT CHARSET=utf8;;
 
 create table school_info( 
 	create_time  date not null comment  '创建时间',  
 	modify_time date not null  comment  '修改时间',  
 	school_id varchar(7) comment '学校id',
-	school_name varchar(50) comment '学校名称',
-	school_address varchar(50) comment '学校地址(主要地址)',
+	school_name varchar(150) CHARACTER SET utf8  comment '学校名称',
+	school_address varchar(150) CHARACTER SET utf8 comment '学校地址(主要地址)',
 	area_id varchar(3) comment '学校区块id',
-	area_name varchar(50) comment '区块名称',
-	area_address varchar(50) comment '区块地址',
+	area_name varchar(50) CHARACTER SET utf8 comment '区块名称',
+	area_address varchar(250) CHARACTER SET utf8 comment '区块地址',
 	pox varchar(20) comment '区块经纬度(经度｜纬度)',
 	head_id varchar(5) comment '区块负责任id'
-) comment '学校信息表';
+) comment '学校信息表' DEFAULT CHARSET=utf8;
 
 create table sale_order( 
 	create_time  date not null comment  '创建时间',  
@@ -66,16 +65,16 @@ create table sale_order(
 	order_num varchar(6) comment '数量',
 	buyer_id varchar(10) comment '买家id',
 	status Integer comment '订单状态(0.待交货，-1.点单作废 1.订单完成)'
-) comment '买家订单表';
+) comment '买家订单表' DEFAULT CHARSET=utf8;
 
 create table buyer_info( 
 	create_time  date not null comment  '创建时间',  
 	modify_time date not null  comment  '修改时间', 
 	buyer_id varchar(10) not null  comment '买家id',
-	buyer_name varchar(20) comment '买家姓名',
+	buyer_name varchar(20) CHARACTER SET utf8 comment '买家姓名',
 	buyer_id_card varchar(20) comment '买家身份证',
-	buyer_address varchar(50) comment '买家地址',
+	buyer_address varchar(150) CHARACTER SET utf8 comment '买家地址',
 	buyer_phone varchar(11) comment '买家电话',
 	buyer_qq varchar(12) comment 'qq',
 	buyer_e_mail varchar(20) comment 'e_mail'
-) comment '买家信息表';
+) comment '买家信息表' DEFAULT CHARSET=utf8;

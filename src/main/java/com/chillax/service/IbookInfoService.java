@@ -22,4 +22,11 @@ public interface IbookInfoService {
 	 * @return
 	 */
 	public BookInfo queryDBThenInterNet(String id);
+	
+	/**
+	 * 将图书信息保存入库，将图片放入ftp中
+	 * @param book
+	 * @return
+	 */
+	public boolean saveBookInfo(BookInfo book);
 }
