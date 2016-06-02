@@ -7,13 +7,10 @@
 <script type="text/javascript" src="../js/bookInfo/query.js"></script>
 <script type="text/javascript" src="../js/common.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"> -->
 <!-- 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> -->
 <title>查询书本信息</title>
-<style type="text/css">
-@media (min-width: @screen-sm-min) {}
-
-</style>
 </head>
 <body>
 	<div style="margin: 30px">
@@ -23,7 +20,8 @@
 		<div class="input-group">
 			<span class="input-group-addon">书本编码</span> 
 			<input id="book_id" type="text" class="form-control">
-			<span id="submit_book_id" class="input-group-addon">查询</span>
+			<span id="submit_book_id" class="input-group-addon btn">查询</span>
+			<span id="add_book_info" class="input-group-addon btn">新增书本信息</span>
 		</div>
 
 		<div class="row show_book_info"  >
@@ -32,16 +30,16 @@
 					<img id="book_photo_path" data-src="holder.js/300x200" src="" alt="书本外观">
 					<div class="caption">
 						<h3>图书信息</h3>
-							<p>书本名称：<label id="book_name"></label></p> 
-							<p>书本编号：<label id="book_id_info"></label></p> 
-							<p>编号协议：<label id="book_protocl"></label></p> 
-							<p>出版社：<label id="book_concern"></label></p> 
-							<p>作者：<label id="book_author"></label></p> 
-							<p>书本定价：<label id="order_prices"></label></p> 
-							<p>书本页数：<label id="book_page_num"></label></p> 
+							<p>书本名称：<label class="show_info" id="book_name"></label><input class="modify_info" type="text" id="book_name_input"></p> 
+							<p>书本编号：<label class="show_info" id="book_id_info"></label><input class="modify_info" type="text" id="book_id_info_input"></p> 
+							<p>编号协议：<label class="show_info" id="book_protocl"></label><input class="modify_info" type="text" id="book_protocl_input"></p> 
+							<p>出版社：<label class="show_info" id="book_concern"></label><input class="modify_info" type="text" id="book_concern_input"></p> 
+							<p>作者：<label class="show_info" id="book_author"></label><input class="modify_info" type="text" id="book_author_input"></p> 
+							<p>书本定价：<label class="show_info" id="order_prices"></label><input class="modify_info" type="text" id="order_prices_input"></p> 
+							<p>书本页数：<label class="show_info" id="book_page_num"></label><input class="modify_info" type="text" id="book_page_num_input"></p> 
 						<p>
-							<a href="#" class="btn btn-primary" role="button">Button</a> 
-							<a href="#" class="btn btn-default" role="button">Button</a>
+							<a href="#" class="btn btn-primary" id="modify_bookInfo" role="button">修改</a> 
+							<a href="#" class="btn btn-default" id="save_bookInfo" role="button">确认</a>
 						</p>
 					</div>
 				</div>
@@ -49,8 +47,8 @@
 		</div>
 
 	</div>
-	<div id="background" class="modal-backdrop in hide loading">dfg</div>
-	<div class="hide loading" style="position: relative; left: 35%; top: 30%; z-index: 1250; display: block;">
+	<div id="background" class="modal-backdrop in loading"></div>
+	<div class="loading" style="position: relative; left: 35%; top: 30%; z-index: 1250; display: block;">
 		<img src="../img/loading.gif" alt="loading.." />
 	</div>
 </body>
