@@ -3,6 +3,7 @@ package com.chillax.entry.enums;
 public enum ErrorCodeEnum {
 	
 	Error_input("error_input","入参不符合规范"),
+	Error_input_stream("error_input","请选择要上传的照片"),
 	Sorry_info("sorry","后台开小差了，请稍后再试");
 	
 	 private final String errorCode;

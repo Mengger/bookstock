@@ -56,7 +56,6 @@ function upload(){
         fileElementId:'up',
         dataType: 'json',
         success: function (data, status){
-           alert(data);
            if(data.status==1){
                alert(data.result);
            }else{

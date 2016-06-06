@@ -73,21 +73,28 @@ public class BookInfoAction {
      */  
     @RequestMapping("fileUpload")  
     @ResponseBody
-    public String fileUpload(@RequestParam("file") MultipartFile file) {  
+    public SingleResultDO<Boolean> fileUpload(@RequestParam("file") MultipartFile file) {  
+    	SingleResultDO<Boolean> rtn=new SingleResultDO<Boolean>();
+    	rtn.setSuccess(true);
+    	rtn.setResult(true);
         // 判断文件是否为空  
-    	System.out.println("***************************************************************");
         if (!file.isEmpty()) {  
-            try {  
-            	System.out.println("***************************************************************");
-            	System.out.println("***************************************************************");
-            	System.out.println("***************************************************************");
+            try {
                 // 转存文件  
                 file.getInputStream();  
             } catch (Exception e) {  
-                e.printStackTrace();  
+                log.error("file upload error",e);
+                rtn.setSuccess(false);
+                rtn.setResult(false);
+    			rtn.setErrorCode(ErrorCodeEnum.Sorry_info.getErrorCode());
+    			rtn.setErrorDesc(ErrorCodeEnum.Sorry_info.getErrorMessage());
             }  
-        }  
-        // 重定向  
-        return "true";  
+        }else{
+        	rtn.setSuccess(false);
+        	rtn.setResult(false);
+        	rtn.setErrorCode(ErrorCodeEnum.Error_input_stream.getErrorCode());
+        	rtn.setErrorDesc(ErrorCodeEnum.Error_input_stream.getErrorMessage());
+        }
+        return rtn;  
     }  
 }
