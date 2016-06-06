@@ -1,6 +1,7 @@
 package com.chillax.service;
 
 import com.chillax.entry.BookInfo;
+import com.chillax.entry.Vo.BookInfoVo;
 
 public interface IbookInfoService {
 
@@ -21,7 +22,7 @@ public interface IbookInfoService {
 	 * @param id
 	 * @return
 	 */
-	public BookInfo queryDBThenInterNet(String id);
+	public BookInfoVo queryDBThenInterNet(String id);
 	
 	/**
 	 * 将图书信息保存入库，将图片放入ftp中

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.chillax.dao.BookInfoDao;
 import com.chillax.entry.BookInfo;
+import com.chillax.entry.Vo.BookInfoVo;
 import com.chillax.service.IbookInfoService;
 import com.chillax.until.HttpRequest;
 import com.chillax.until.StringRegexUntil;
@@ -93,11 +94,27 @@ public class BookInfoServiceImpl implements IbookInfoService {
 		return null;
 	}
 
-	public BookInfo queryDBThenInterNet(String id) {
-		BookInfo bookInfo=queryDBbyBookId(id);
-		if(null!=bookInfo)
-			return bookInfo;
-		return bookInfo=queryInternetByBookId(id);
+	public BookInfoVo queryDBThenInterNet(String id) {
+		BookInfoVo bookInfo=null;
+		BookInfo bookIn=queryDBbyBookId(id);
+		if(null!=bookIn){
+			bookInfo=new BookInfoVo(bookIn);
+			bookInfo.setBookFrom(0);
+		}else{
+			bookInfo=new BookInfoVo();
+			try {
+				bookInfo=bookInfo.setBookInfo(queryInternetByBookId(id));
+				bookInfo.setSuccessByInternet(true);
+			}catch (ArrayIndexOutOfBoundsException e){
+				bookInfo.setSuccessByInternet(false);
+				log.error("queryInternetByBookId error,_____id____"+id+" is not exit");
+			}catch (Exception e) {
+				bookInfo.setSuccessByInternet(false);
+				log.error("queryInternetByBookId error",e);
+			}
+			bookInfo.setBookFrom(1);
+		}
+		return bookInfo;
 	}
 
 	public boolean saveBookInfo(BookInfo book) {

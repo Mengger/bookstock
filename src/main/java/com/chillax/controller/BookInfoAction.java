@@ -7,10 +7,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.chillax.entry.BookInfo;
-import com.chillax.entry.menu.ErrorCodeEnum;
+import com.chillax.entry.Vo.BookInfoVo;
+import com.chillax.entry.enums.ErrorCodeEnum;
 import com.chillax.entry.result.SingleResultDO;
 import com.chillax.service.IbookInfoService;
 
@@ -23,10 +26,10 @@ public class BookInfoAction {
 	@Resource
 	private IbookInfoService bookInfoService;
 	
-	@RequestMapping(method = RequestMethod.GET , value="/bookInfo.json")
+	@RequestMapping(method = RequestMethod.GET , value="/bookInfo")
 	@ResponseBody
-	public SingleResultDO<BookInfo> queryBookInfoById(String bookId){
-		SingleResultDO<BookInfo> rtn=new SingleResultDO<BookInfo>();
+	public SingleResultDO<BookInfoVo> queryBookInfoById(String bookId){
+		SingleResultDO<BookInfoVo> rtn=new SingleResultDO<BookInfoVo>();
 		if(null==bookId){
 			rtn.setSuccess(false);
 			rtn.setErrorCode(ErrorCodeEnum.Error_input.getErrorCode());
@@ -44,7 +47,7 @@ public class BookInfoAction {
 		return rtn;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET , value="/saveInfo.json")
+	@RequestMapping(method = RequestMethod.GET , value="/saveInfo")
 	@ResponseBody
 	public SingleResultDO<BookInfo> saveBookInfo(String bookId,String bookProtocl,String bookName,
 			String bookConcern,String bookAuthor,int orderPrices,String bookPageNum,String bookPhotoPath){
@@ -61,4 +64,30 @@ public class BookInfoAction {
 		return null;
 		
 	}
+	
+	/*** 
+     * 上传文件 用@RequestParam注解来指定表单上的file为MultipartFile 
+     *  
+     * @param file 
+     * @return 
+     */  
+    @RequestMapping("fileUpload")  
+    @ResponseBody
+    public String fileUpload(@RequestParam("file") MultipartFile file) {  
+        // 判断文件是否为空  
+    	System.out.println("***************************************************************");
+        if (!file.isEmpty()) {  
+            try {  
+            	System.out.println("***************************************************************");
+            	System.out.println("***************************************************************");
+            	System.out.println("***************************************************************");
+                // 转存文件  
+                file.getInputStream();  
+            } catch (Exception e) {  
+                e.printStackTrace();  
+            }  
+        }  
+        // 重定向  
+        return "true";  
+    }  
 }

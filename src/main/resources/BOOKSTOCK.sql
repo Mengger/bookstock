@@ -6,11 +6,12 @@ create table book_info(
 	book_name varchar(100) CHARACTER SET utf8 not null comment '图书名称', 
 	author varchar(20) CHARACTER SET utf8 comment '作者', 
 	book_concerm  varchar(50) CHARACTER SET utf8 comment '出版社名称', 
-	status  Integer comment '图书状态(1.正常  0.停收)', 
+	status  Integer comment '图书状态(1.正常  0.停收 -1.待审核)', 
 	book_type_id varchar(10) CHARACTER SET utf8 comment '图书类型id', 
 	order_prices Integer comment '定价(单位:分)', 
 	used_prices  Integer comment '二手书价(单位:分)', 
 	photo_path varchar(150) CHARACTER SET utf8 comment '照片地址', 
+	local_photo_path varchar(150) CHARACTER SET utf8 comment '本地照片地址', 
 	page_num varchar(5) CHARACTER SET utf8  comment '页数' 
 ) comment '图书属性表' DEFAULT CHARSET=utf8;
 

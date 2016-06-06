@@ -1,4 +1,4 @@
-package com.chillax.entry.menu;
+package com.chillax.entry.enums;
 
 public enum ErrorCodeEnum {
 	

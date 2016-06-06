@@ -70,9 +70,23 @@ public class BookInfo {
 	private String photoPath;
 	
 	/**
+	 * 本地照片地址
+	 */
+	private String localPhotoPath;
+	
+	/**
 	 * 页数
 	 */
 	private String pageNum;
+
+	
+	public String getLocalPhotoPath() {
+		return localPhotoPath;
+	}
+
+	public void setLocalPhotoPath(String localPhotoPath) {
+		this.localPhotoPath = localPhotoPath;
+	}
 
 	public Date getInfoCreateTime() {
 		return infoCreateTime;
@@ -180,7 +194,7 @@ public class BookInfo {
 
 	public BookInfo(Date infoCreateTime, Date infoModifyTime, String bookId, String bookProtocl, String bookName,
 			String author, String bookConcerm, Integer status, String bookTypeId, Integer orderPrices,
-			Integer usedPrices, String photoPath, String pageNum) {
+			Integer usedPrices, String photoPath, String pageNum,String localPhotoPath) {
 		super();
 		this.infoCreateTime = infoCreateTime;
 		this.infoModifyTime = infoModifyTime;
@@ -195,13 +209,28 @@ public class BookInfo {
 		this.usedPrices = usedPrices;
 		this.photoPath = photoPath;
 		this.pageNum = pageNum;
+		this.localPhotoPath=localPhotoPath;
 	}
 
 	public BookInfo() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	
+	public BookInfo(BookInfo bookInfo) {
+		this.infoCreateTime = bookInfo.getInfoCreateTime();
+		this.infoModifyTime = bookInfo.getInfoModifyTime();
+		this.bookId = bookInfo.getBookId();
+		this.bookProtocl = bookInfo.getBookProtocl();
+		this.bookName = bookInfo.getBookName();
+		this.author = bookInfo.getAuthor();
+		this.bookConcerm = bookInfo.getBookConcerm();
+		this.status = bookInfo.getStatus();
+		this.bookTypeId = bookInfo.getBookTypeId();
+		this.orderPrices = bookInfo.getOrderPrices();
+		this.usedPrices = bookInfo.getUsedPrices();
+		this.photoPath = bookInfo.getPhotoPath();
+		this.pageNum = bookInfo.getPageNum();
+		this.localPhotoPath=bookInfo.getLocalPhotoPath();
+	}
 	
 }
 
