@@ -10,7 +10,7 @@ public class FTPBean {
 	/**
 	 * ftp端口
 	 */
-	private String port;
+	private int port;
 	
 	/**
 	 * 账号
@@ -33,7 +33,7 @@ public class FTPBean {
 	private String localPathTemp;
 	
 	/**
-	 * 移动前 地址
+	 * 远程路径，上传文件的默认路径
 	 */
 	private String remotePath;
 	
@@ -50,11 +50,11 @@ public class FTPBean {
 		this.hostIp = hostIp;
 	}
 
-	public String getPort() {
+	public int getPort() {
 		return port;
 	}
 
-	public void setPort(String port) {
+	public void setPort(int port) {
 		this.port = port;
 	}
 
@@ -108,10 +108,9 @@ public class FTPBean {
 
 	public FTPBean() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public FTPBean(String hostIp, String port, String userName, String password, String localPath, String localPathTemp,
+	public FTPBean(String hostIp, int port, String userName, String password, String localPath, String localPathTemp,
 			String remotePath, String remotePathHis) {
 		super();
 		this.hostIp = hostIp;

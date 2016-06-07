@@ -67,6 +67,7 @@ public class ReadKeyAndValueFromRedis {
 		}
 		System.out.println("====current exception data end==========");
 
+		System.out.println("*********************"+RedisManager.getCountByKeyAndInc("GROUP_0","keyssss"));
 	}
 
 }

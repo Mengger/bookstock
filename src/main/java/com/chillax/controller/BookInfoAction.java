@@ -1,5 +1,8 @@
 package com.chillax.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -16,6 +19,8 @@ import com.chillax.entry.Vo.BookInfoVo;
 import com.chillax.entry.enums.ErrorCodeEnum;
 import com.chillax.entry.result.SingleResultDO;
 import com.chillax.service.IbookInfoService;
+import com.chillax.until.FtpUtil;
+import com.chillax.until.redis.load.RedisManager;
 
 @Controller
 @RequestMapping
@@ -73,7 +78,7 @@ public class BookInfoAction {
      */  
     @RequestMapping("fileUpload")  
     @ResponseBody
-    public SingleResultDO<Boolean> fileUpload(@RequestParam("file") MultipartFile file) {  
+    public SingleResultDO<Boolean> fileUpload(@RequestParam("file") MultipartFile file,String bookId) {  
     	SingleResultDO<Boolean> rtn=new SingleResultDO<Boolean>();
     	rtn.setSuccess(true);
     	rtn.setResult(true);
@@ -81,7 +86,17 @@ public class BookInfoAction {
         if (!file.isEmpty()) {  
             try {
                 // 转存文件  
-                file.getInputStream();  
+            	String filePath=null;
+            	if(RedisManager.getCountByKeyAndInc("GROUP_0", "floder_content")>100){
+            		//该文件夹的图片数量大于100   清零，重新创建新的文件夹
+            		RedisManager.setValueByKeyAndGroup("GROUP_0", "floder_content", "1");
+            		RedisManager.setValueByKeyAndGroup("GROUP_0", "floder_name", "");
+            	}else{
+            		
+            	}
+            	FtpUtil f = new FtpUtil();
+        		boolean con=f.upload("audio"+bookId,file.getInputStream());
+        		System.out.println(con);
             } catch (Exception e) {  
                 log.error("file upload error",e);
                 rtn.setSuccess(false);

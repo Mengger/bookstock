@@ -1,7 +1,6 @@
 package com.chillax.until.ftp;
 
 import java.io.IOException;
-import java.util.Map;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -11,7 +10,7 @@ public class FTPFactory {
 
 	private static final Logger log = LoggerFactory.getLogger(FTPFactory.class);
 	
-	static FTPBean FTPBean;
+	public static FTPBean FTPBean;
 	
 	static{
 		FTPBean=loadConfig();
@@ -36,7 +35,7 @@ public class FTPFactory {
 			p.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName));
 			FTPBean ftpConfig=new FTPBean();
 			ftpConfig.setHostIp(p.getProperty("hostIp"));
-			ftpConfig.setPort(p.getProperty("port"));
+			ftpConfig.setPort(Integer.valueOf(p.getProperty("port")));
 			ftpConfig.setUserName(p.getProperty("userName"));
 			ftpConfig.setPassword(p.getProperty("password"));
 			ftpConfig.setLocalPath(p.getProperty("localPath"));
