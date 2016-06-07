@@ -54,6 +54,9 @@ function upload(){
         url:'../fileUpload.action',
         secureuri:false,
         fileElementId:'up',
+        data:{
+        	bookId:$("#book_id_info_input").val()
+        },
         dataType: 'json',
         success: function (data, status){
            if(data.status==1){
@@ -83,9 +86,6 @@ function showBookInfo(){
 	$.ajax({
 		url:"../bookInfo.action",
 		dataType: 'json',
-		data:{
-			bookId:$("#book_id").val()
-		},
 		success:function(data){
 			initCleanInfo();
 			$("#add_book_info").hide();

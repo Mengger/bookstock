@@ -1,7 +1,8 @@
 package com.chillax.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 
 import javax.annotation.Resource;
 
@@ -19,6 +20,7 @@ import com.chillax.entry.Vo.BookInfoVo;
 import com.chillax.entry.enums.ErrorCodeEnum;
 import com.chillax.entry.result.SingleResultDO;
 import com.chillax.service.IbookInfoService;
+import com.chillax.until.DateUntil;
 import com.chillax.until.FtpUtil;
 import com.chillax.until.redis.load.RedisManager;
 
@@ -78,7 +80,7 @@ public class BookInfoAction {
      */  
     @RequestMapping("fileUpload")  
     @ResponseBody
-    public SingleResultDO<Boolean> fileUpload(@RequestParam("file") MultipartFile file,String bookId) {  
+    public SingleResultDO<Boolean> fileUpload(@RequestParam("file") MultipartFile file) {  
     	SingleResultDO<Boolean> rtn=new SingleResultDO<Boolean>();
     	rtn.setSuccess(true);
     	rtn.setResult(true);
@@ -90,12 +92,29 @@ public class BookInfoAction {
             	if(RedisManager.getCountByKeyAndInc("GROUP_0", "floder_content")>100){
             		//该文件夹的图片数量大于100   清零，重新创建新的文件夹
             		RedisManager.setValueByKeyAndGroup("GROUP_0", "floder_content", "1");
-            		RedisManager.setValueByKeyAndGroup("GROUP_0", "floder_name", "");
-            	}else{
-            		
+            		RedisManager.setValueByKeyAndGroup("GROUP_0", "floder_name", DateUntil.getNowTime("yyyyMMddHHmmss"));
             	}
+            	filePath=RedisManager.getValueByKeyAndGroup("GROUP_0", "floder_name");
+            	if(null==filePath){
+            		filePath=DateUntil.getNowTime("yyyyMMddHHmmss");
+            		RedisManager.setValueByKeyAndGroup("GROUP_0", "floder_name", filePath);
+            	}
+            	InputStream in=file.getInputStream();
+//            	File of=new File("/Users/jack/Desktop/222.png");
+//            	FileOutputStream os=new FileOutputStream(of);
+//            	byte []aa=new byte[1000];
+//            	while(in.read(aa)!=-1){
+//            		os.write(aa);
+//            	}
+//            	in.close();
+//            	os.close();
+            	System.out.println("upload is begin");
             	FtpUtil f = new FtpUtil();
-        		boolean con=f.upload("audio"+bookId,file.getInputStream());
+            	f.bin();
+        		boolean con=f.upload(filePath+".png",in);
+        		in.close();
+        		f.close();
+        		System.out.println(filePath);
         		System.out.println(con);
             } catch (Exception e) {  
                 log.error("file upload error",e);
