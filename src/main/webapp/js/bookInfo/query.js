@@ -4,7 +4,7 @@
 $(document).ready(function(){
 	
 	$("#up").uploadPreview({ Img: "book_photo_path" });
-	
+	document.getElementById('up').addEventListener('change', handleFileSelect,false);
 	//查询
 	$("#submit_book_id").click(function (){
 		showBookInfo();

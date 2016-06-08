@@ -3,6 +3,7 @@ package com.chillax.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.Date;
 
 import javax.annotation.Resource;
 
@@ -22,6 +23,7 @@ import com.chillax.entry.result.SingleResultDO;
 import com.chillax.service.IbookInfoService;
 import com.chillax.until.DateUntil;
 import com.chillax.until.FtpUtil;
+import com.chillax.until.ftp.FTPFactory;
 import com.chillax.until.redis.load.RedisManager;
 
 @Controller
@@ -109,11 +111,21 @@ public class BookInfoAction {
 //            	in.close();
 //            	os.close();
             	System.out.println("upload is begin");
+            	long begin=new Date().getTime();
             	FtpUtil f = new FtpUtil();
-            	f.bin();
-        		boolean con=f.upload(filePath+".png",in);
+            	f.connectServer(FTPFactory.FTPBean);
+            	long connect=new Date().getTime();
+        		boolean con=f.uploadFile(in,filePath+".png","/thi/");
+        		long upload=new Date().getTime();
         		in.close();
-        		f.close();
+        		f.closeServer();
+        		long end=new Date().getTime();
+        		
+        		
+        		System.out.println("connect ftp spends time "+(connect-begin));
+        		System.out.println("upload file spends time "+(upload-connect));
+        		System.out.println("close file spends time "+(end-upload));
+        		
         		System.out.println(filePath);
         		System.out.println(con);
             } catch (Exception e) {  
