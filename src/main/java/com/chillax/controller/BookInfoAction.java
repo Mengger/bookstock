@@ -1,12 +1,15 @@
 package com.chillax.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Date;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -25,6 +28,9 @@ import com.chillax.until.DateUntil;
 import com.chillax.until.FtpUtil;
 import com.chillax.until.ftp.FTPFactory;
 import com.chillax.until.redis.load.RedisManager;
+
+import sun.misc.BASE64Decoder;  
+import sun.misc.BASE64Encoder;  
 
 @Controller
 @RequestMapping
@@ -58,7 +64,7 @@ public class BookInfoAction {
 	
 	@RequestMapping(method = RequestMethod.GET , value="/saveInfo")
 	@ResponseBody
-	public SingleResultDO<BookInfo> saveBookInfo(String bookId,String bookProtocl,String bookName,
+	public SingleResultDO<String> saveBookInfo(String bookId,String bookProtocl,String bookName,String loaclPath,
 			String bookConcern,String bookAuthor,int orderPrices,String bookPageNum,String bookPhotoPath){
 		BookInfo book=new BookInfo();
 		book.setBookId(bookId);
@@ -69,10 +75,93 @@ public class BookInfoAction {
 		book.setAuthor(bookAuthor);
 		book.setPageNum(bookPageNum);
 		book.setPhotoPath(bookPhotoPath);
-		bookInfoService.saveBookInfo(book);
-		return null;
-		
+		String ftpPath;
+		try {
+			ftpPath = RedisManager.getValueByKeyAndGroup("GROUP_0", bookId);
+			if(!StringUtils.isBlank(ftpPath)){
+				book.setLocalPhotoPath(ftpPath);
+				RedisManager.removeByKeyAndGroup("GROUP_0", bookId);
+				RedisManager.removeByKeyAndGroup("GROUP_0", bookId+"_path");
+			}
+		} catch (Exception e) {
+			log.error("redis is error",e);
+		}
+		SingleResultDO<String> rtn=new SingleResultDO<String>();
+		try {
+			bookInfoService.saveBookInfo(book);
+			rtn.setSuccess(true);
+		} catch (Exception e) {
+			log.error("save book error",e);
+			rtn.setSuccess(false);
+			rtn.setErrorCode(ErrorCodeEnum.Book_exit.getErrorCode());
+			rtn.setErrorDesc(ErrorCodeEnum.Book_exit.getErrorMessage());
+		}
+		return rtn;
 	}
+	
+	@RequestMapping(method = RequestMethod.POST , value="/fileUploadBase64")
+	@ResponseBody
+	public SingleResultDO<String> fileUploadBase64(String base64,String bookId) {  
+    	SingleResultDO<String> rtn=new SingleResultDO<String>();
+        // 判断文件是否为空  
+        if (!StringUtils.isBlank(base64)) {
+        	String imgInfo[]=base64.split(",");
+        	base64=imgInfo[1];
+        	String imgType=imgInfo[0].substring(imgInfo[0].indexOf("/"), imgInfo[0].indexOf(";"));
+            try {
+                // 转存文件  
+            	String filePath=null;
+            	if(RedisManager.getCountByKeyAndInc("GROUP_0", "floder_content")>100){
+            		//该文件夹的图片数量大于100   清零，重新创建新的文件夹
+            		RedisManager.setValueByKeyAndGroup("GROUP_0", "floder_content", "1");
+            		RedisManager.setValueByKeyAndGroup("GROUP_0", "floder_name", DateUntil.getNowTime("yyyyMMddHHmmss"));
+            	}
+            	filePath=RedisManager.getValueByKeyAndGroup("GROUP_0", "floder_name");
+            	if(null==filePath){
+            		filePath=DateUntil.getNowTime("yyyyMMddHHmmss");
+            		RedisManager.setValueByKeyAndGroup("GROUP_0", "floder_name", filePath);
+            	}
+            	BASE64Decoder decoder = new BASE64Decoder();  
+                 //Base64解码  
+                byte[] b = decoder.decodeBuffer(base64);  
+                for(int i=0;i<b.length;++i){  
+                	if(b[i]<0){//调整异常数据  
+                		b[i]+=256;  
+                	}  
+                }  
+                /*
+                OutputStream out = new FileOutputStream(new File("/Users/jack/Desktop/"+filePath+"."+imgType));      
+                out.write(b);  
+                out.flush();  
+                out.close();*/  
+                String oldPath=RedisManager.getValueByKeyAndGroup("GROUP_0", bookId+"_path");
+                if(!StringUtils.isBlank(oldPath)){
+                	filePath=oldPath;
+                }
+            	FtpUtil f = new FtpUtil();
+            	f.connectServer(FTPFactory.FTPBean);
+            	ByteArrayInputStream in=new ByteArrayInputStream(b);
+        		boolean con=f.uploadFile(in,bookId+"."+imgType,filePath);
+        		if (con) {
+					RedisManager.setValueByKeyAndGroup("GROUP_0", bookId, filePath+"/"+bookId+"."+imgType);
+					RedisManager.setValueByKeyAndGroup("GROUP_0", bookId+"_path", filePath);
+					rtn.setSuccess(true);
+				}
+        		in.close();
+        		f.closeServer();
+            } catch (Exception e) {  
+                log.error("file upload error",e);
+                rtn.setSuccess(false);
+    			rtn.setErrorCode(ErrorCodeEnum.Sorry_info.getErrorCode());
+    			rtn.setErrorDesc(ErrorCodeEnum.Sorry_info.getErrorMessage());
+            }  
+        }else{
+        	rtn.setSuccess(false);
+        	rtn.setErrorCode(ErrorCodeEnum.Error_input_stream.getErrorCode());
+        	rtn.setErrorDesc(ErrorCodeEnum.Error_input_stream.getErrorMessage());
+        }
+        return rtn;  
+    }  
 	
 	/*** 
      * 上传文件 用@RequestParam注解来指定表单上的file为MultipartFile 
@@ -102,32 +191,11 @@ public class BookInfoAction {
             		RedisManager.setValueByKeyAndGroup("GROUP_0", "floder_name", filePath);
             	}
             	InputStream in=file.getInputStream();
-//            	File of=new File("/Users/jack/Desktop/222.png");
-//            	FileOutputStream os=new FileOutputStream(of);
-//            	byte []aa=new byte[1000];
-//            	while(in.read(aa)!=-1){
-//            		os.write(aa);
-//            	}
-//            	in.close();
-//            	os.close();
-            	System.out.println("upload is begin");
-            	long begin=new Date().getTime();
             	FtpUtil f = new FtpUtil();
             	f.connectServer(FTPFactory.FTPBean);
-            	long connect=new Date().getTime();
         		boolean con=f.uploadFile(in,filePath+".png","/thi/");
-        		long upload=new Date().getTime();
         		in.close();
         		f.closeServer();
-        		long end=new Date().getTime();
-        		
-        		
-        		System.out.println("connect ftp spends time "+(connect-begin));
-        		System.out.println("upload file spends time "+(upload-connect));
-        		System.out.println("close file spends time "+(end-upload));
-        		
-        		System.out.println(filePath);
-        		System.out.println(con);
             } catch (Exception e) {  
                 log.error("file upload error",e);
                 rtn.setSuccess(false);

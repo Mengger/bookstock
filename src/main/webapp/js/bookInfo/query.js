@@ -3,10 +3,11 @@
  */
 $(document).ready(function(){
 	
-	$("#up").uploadPreview({ Img: "book_photo_path" });
 	document.getElementById('up').addEventListener('change', handleFileSelect,false);
 	//查询
 	$("#submit_book_id").click(function (){
+		uploadPicResult=false;
+		isCreater=false;
 		showBookInfo();
 	});
 	
@@ -22,18 +23,78 @@ $(document).ready(function(){
 	
 	//手工录入
 	$("#add_book_info").click(function (){
+		isCreater=true;
 		showInfoToSave();
+		$("#book_id_info_input").val(bookIdAllContent);
 	});
 	
 	init();
+	
+	$("#book_id_info_input").blur(function (){
+		if(isCreater){
+			bookIdAllContent=$("#book_id_info_input").val();
+			uploadCompressImg();
+		}
+	});
 });
 
+var bookIdAllContent;
+var isCreater=false;
+var uploadPicResult=false;
 function init(){
 	$(".show_book_info").hide();
 	$(".loading").hide();
 	$("#add_book_info").hide();
 }
 
+function uploadCompressImg(){
+	if(invalid(bookIdAllContent)){
+		alert("请先填写图书编号");
+		return ;
+	}
+	var base64=$("#book_photo_path").attr("src");
+	$.ajax({
+		url:"../fileUploadBase64.action",
+		data:{
+			base64:base64,
+			bookId:bookIdAllContent
+		},
+		type:'post',
+		dataType: 'json',
+		success:function(res){
+			if(res.success){
+	        	uploadPicResult=true;
+	        }else{
+	        	uploadPicResult=false;
+	        }
+		},
+		error:function(data){
+			uploadPicResult=false;
+		}
+	});
+}
+
+function handleFileSelect(evt) {
+	var files = evt.target.files;
+	for (var i = 0, f; f = files[i]; i++) {
+		if (!f.type.match('image.*')) {
+			continue;
+		}
+		var reader = new FileReader();
+		reader.onload = (function(theFile) {
+			return function(e) {
+				var i = document.getElementById("book_photo_path");
+				i.src = event.target.result;
+				$(i).css('width', $(i).width()+ 'px');
+				var quality =80;
+				i.src = $.compress(i, quality).src;
+				i.style.display = "block";
+			};
+		})(f);
+		reader.readAsDataURL(f);
+	}
+	uploadCompressImg();
+}
 /**
  * 手工录入信息
  * 
@@ -45,6 +106,7 @@ function showInfoToSave(){
 	$("#save_bookInfo").show();
 }
 
+
 /**
  * 图片上传
  * @returns {Boolean}
@@ -54,9 +116,6 @@ function upload(){
         url:'../fileUpload.action',
         secureuri:false,
         fileElementId:'up',
-        data:{
-        	bookId:$("#book_id_info_input").val()
-        },
         dataType: 'json',
         success: function (data, status){
            if(data.status==1){
@@ -76,6 +135,7 @@ function upload(){
  * 显示图书详情
  */
 function showBookInfo(){
+	bookIdAllContent="";
 	$(".show_book_info").hide();
 	
 	if(invalid($("#book_id").val())){
@@ -86,6 +146,9 @@ function showBookInfo(){
 	$.ajax({
 		url:"../bookInfo.action",
 		dataType: 'json',
+		data:{
+			bookId:$("#book_id").val()
+		},
 		success:function(data){
 			initCleanInfo();
 			$("#add_book_info").hide();
@@ -97,7 +160,9 @@ function showBookInfo(){
 					if(bookInfo.successByInternet){//查询成功
 						showInfoText=true;
 					}else{
-						alert("没有查到该书本信息,请手工录入");
+						alert("没有查到该书本信息,请认真核对条形码是否有误,若确认条形码正确,请选择手工录入");
+						bookIdAllContent=$("#book_id").val();
+						$("#book_id_info_input").val(bookIdAllContent);
 						$("#add_book_info").show();
 					}
 				}else if(bookInfo.bookFrom==0){
@@ -193,6 +258,8 @@ function saveBookInfo(){
 			alert(data.errorDesc);
 			if(data.success){
 				$(".show_book_info").hide();
+			}else{
+				alert(data.errorDesc);
 			}
 			$(".loading").hide();
 		},

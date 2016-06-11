@@ -119,7 +119,9 @@ public class BookInfoServiceImpl implements IbookInfoService {
 
 	public boolean saveBookInfo(BookInfo book) {
 		int num=bookInfoDao.saveBookInfo(book);
-		System.out.println(num);
+		if(num>0){
+			return true;
+		}
 		return false;
 	}
 

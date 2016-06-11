@@ -2,7 +2,7 @@ create table book_info(
 	info_create_time  date not null comment  '创建时间', 
 	info_modify_time date not null  comment  '修改时间', 
 	book_id varchar(15) CHARACTER SET utf8 not null PRIMARY KEY comment '图书编号', 
-	book_protocl varchar(5) CHARACTER SET utf8 comment '编号协议(ISBN、ISSN、ISRC)', 
+	book_protocl varchar(5) CHARACTER SET utf8 comment '编号协议(1.ISBN、2.ISSN、3.ISRC)', 
 	book_name varchar(100) CHARACTER SET utf8 not null comment '图书名称', 
 	author varchar(20) CHARACTER SET utf8 comment '作者', 
 	book_concerm  varchar(50) CHARACTER SET utf8 comment '出版社名称', 
