@@ -11,7 +11,8 @@ create table book_info(
 	order_prices Integer comment '定价(单位:分)', 
 	used_prices  Integer comment '二手书价(单位:分)', 
 	photo_path varchar(150) CHARACTER SET utf8 comment '照片地址', 
-	local_photo_path varchar(150) CHARACTER SET utf8 comment '本地照片地址', 
+	local_photo_path varchar(150) CHARACTER SET utf8 comment '本地FTP照片地址   FTP:/PATH/IMG(FTP代号:相对路径)', 
+	photo_use Integer comment '书本图片取值位置 0代表取别人的图片,1代表取自己FTP的', 
 	page_num varchar(5) CHARACTER SET utf8  comment '页数' 
 ) comment '图书属性表' DEFAULT CHARSET=utf8;
 

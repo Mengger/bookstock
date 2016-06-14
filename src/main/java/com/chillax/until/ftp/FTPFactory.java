@@ -1,6 +1,8 @@
 package com.chillax.until.ftp;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -10,23 +12,31 @@ public class FTPFactory {
 
 	private static final Logger log = LoggerFactory.getLogger(FTPFactory.class);
 	
-	public static FTPBean FTPBean;
+	public static FTPBean FTPUploadDefult;
+	
+	public static String FTPDefultConfig;
+	
+	public static Map<String, FTPBean> FTPBeans=new HashMap<String, FTPBean>();
 	
 	static{
-		FTPBean=loadConfig();
+		loadConfigUploadFTP();
+		FTPUploadDefult=FTPBeans.get(FTPDefultConfig);
 	}
 	
-	public static FTPBean loadConfig(){
+	public static void loadConfigUploadFTP(){
 		try {
 			Properties p = new Properties();
 			p.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("ftpload.properties"));
-			//int count=Integer.valueOf(p.getProperty("ftpCount"));
-			String fileConfig=p.getProperty("FTPConfig");
-			return loadFTPConfigBean(fileConfig);
+			FTPDefultConfig=p.getProperty("FTPUploadDefult");
+			int count=Integer.valueOf(p.getProperty("ftpCount"));
+			for (int i = 1; i < count+1; i++) {
+				String FTPConfig=null;
+				String ftpConfigPath=p.getProperty(FTPConfig)+i;
+				FTPBeans.put(FTPConfig, loadFTPConfigBean(ftpConfigPath));
+			}
 		} catch (IOException e) {
 			log.error("load ftp config error",e);
 		}
-		return null;
 	}
 	
 	public static FTPBean loadFTPConfigBean(String fileName){

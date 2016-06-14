@@ -33,7 +33,9 @@ $(document).ready(function(){
 	$("#book_id_info_input").blur(function (){
 		if(isCreater){
 			bookIdAllContent=$("#book_id_info_input").val();
-			uploadCompressImg();
+			if(!uploadPicResult){
+				uploadCompressImg();
+			}
 		}
 	});
 });
@@ -44,6 +46,7 @@ var uploadPicResult=false;
 function init(){
 	$(".show_book_info").hide();
 	$(".loading").hide();
+	$("#up").hide();
 	$("#add_book_info").hide();
 }
 
@@ -74,6 +77,7 @@ function uploadCompressImg(){
 	});
 }
 
+
 function handleFileSelect(evt) {
 	var files = evt.target.files;
 	for (var i = 0, f; f = files[i]; i++) {
@@ -92,8 +96,8 @@ function handleFileSelect(evt) {
 			};
 		})(f);
 		reader.readAsDataURL(f);
+		uploadCompressImg();
 	}
-	uploadCompressImg();
 }
 /**
  * 手工录入信息
@@ -102,6 +106,8 @@ function handleFileSelect(evt) {
 function showInfoToSave(){
 	initCleanInfo();
 	modifyBookInfo();
+	$("#up").val("");
+	$("#up").show();
 	$("#modify_bookInfo").hide();
 	$("#save_bookInfo").show();
 }
@@ -205,6 +211,9 @@ function showBookInfo(){
 		error:function(data){
 			$("#add_book_info").show();
 			alert("系统已累瘫,请稍后再试");
+			initCleanInfo();
+			$("#add_book_info").hide();
+			$(".loading").hide();
 		}
 	});
 }

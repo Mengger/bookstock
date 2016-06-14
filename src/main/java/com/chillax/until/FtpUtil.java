@@ -345,4 +345,40 @@ public class FtpUtil {
         return ftpClient.retrieveFileStream(sourceFileName);  
     }  
     
+    /**
+     * 从FTP上复制文件流到os中
+     * @param remoteFileName
+     * @param os
+     * @return
+     */
+    public boolean copyStreamFromFTP(String remoteFileName,OutputStream os){
+    	boolean flag=false;
+    	int index=remoteFileName.lastIndexOf("/");
+    	String path=remoteFileName.substring(0,index);
+    	boolean condition=false;
+    	remoteFileName=remoteFileName.substring(index+1);
+    	 try {  
+    		 condition=createPath(path);
+    		 if(condition){
+    			 flag = ftpClient.retrieveFile(remoteFileName, os);  
+    		 }
+         } catch (IOException e) {  
+             flag = false;  
+             return flag;  
+         } finally {  
+             try {
+            	os.flush();
+				os.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+         }  
+         return flag; 
+    }
+    public static void main(String[] args) {
+    	String q="asd/asdd/asd";
+    	int aa=q.lastIndexOf("/");
+		System.out.println(q.substring(0,aa));
+		System.out.println(q.substring(aa+1));
+	}
 }

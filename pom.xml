@@ -200,11 +200,15 @@
 			  <artifactId>jetty-maven-plugin</artifactId>
 			  <version>8.1.16.v20140903</version>
 			  <configuration>
+			  
+			  	<jvmArgs>-XX:PermSize=256M -XX:MaxPermSize=512M</jvmArgs>
 			  	<!-- 表示新代码的扫描时间间隔（秒），值 <= 0 表示不扫描 -->
 			  	<scanIntervalSeconds>5</scanIntervalSeconds>
 			  	<webApp>
 			  		<!-- contextPath 配置表示工程的虚拟目录名 -->
 			  		<contextPath></contextPath>
+			  		<!-- 设置form表单最大上传文件的大小,默认是200000Byte -->
+				  	<maxFormContentSize>1000000</maxFormContentSize>
 			  	</webApp>
 			  </configuration>
 			</plugin>
