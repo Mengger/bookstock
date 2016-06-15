@@ -155,6 +155,7 @@ function showBookInfo(){
 		data:{
 			bookId:$("#book_id").val()
 		},
+		type:'post',
 		success:function(data){
 			initCleanInfo();
 			$("#add_book_info").hide();
@@ -250,10 +251,7 @@ function saveBookInfo(){
 		return;
 	}
 	$(".loading").show();
-	$.ajax({
-		url:'../saveInfo.action',
-		dataType:'json',
-		data:{
+	var data={
 			bookId:$("#book_id_info_input").val(),
 			bookProtocl:$("#book_protocl_input").val(),
 			bookName:$("#book_name_input").val(),
@@ -261,8 +259,15 @@ function saveBookInfo(){
 			bookAuthor:$("#book_author_input").val(),
 			orderPrices:$("#order_prices_input").val(),
 			bookPageNum:$("#book_page_num_input").val(),
-			bookPhotoPath:$("#book_photo_path").attr('src')
-		},
+		}
+	if(!isCreater){
+		data["bookPhotoPath"]=$("#book_photo_path").attr('src');
+	}
+	$.ajax({
+		url:'../saveInfo.action',
+		dataType:'json',
+		type:'post',
+		data:data,
 		success:function(data){
 			alert(data.errorDesc);
 			if(data.success){

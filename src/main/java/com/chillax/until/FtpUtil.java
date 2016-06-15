@@ -2,14 +2,12 @@ package com.chillax.until;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.SocketException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -18,7 +16,6 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
 import com.chillax.until.ftp.FTPBean;
-import com.chillax.until.ftp.FTPFactory;
   
 public class FtpUtil {  
 	
@@ -375,10 +372,4 @@ public class FtpUtil {
          }  
          return flag; 
     }
-    public static void main(String[] args) {
-    	String q="asd/asdd/asd";
-    	int aa=q.lastIndexOf("/");
-		System.out.println(q.substring(0,aa));
-		System.out.println(q.substring(aa+1));
-	}
 }

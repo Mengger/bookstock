@@ -30,8 +30,8 @@ public interface BookInfoDao {
 	})
     BookInfo queryBookInfoById(String bookId);  
 	
-	@Insert("insert into book_info (info_create_time,info_modify_time,book_id,book_protocl,book_name,author,book_concerm,status,book_type_id, order_prices,used_prices,photo_path,page_num)"
-		+ "values(now(),now(),#{bookId},#{bookProtocl},#{bookName},#{author},#{bookConcerm},#{status},#{bookTypeId},#{orderPrices},#{usedPrices},#{photoPath},#{pageNum})")
+	@Insert("insert into book_info (info_create_time,info_modify_time,book_id,book_protocl,book_name,author,book_concerm,status,book_type_id, order_prices,used_prices,photo_path,local_photo_path,page_num)"
+		+ "values(now(),now(),#{bookId},#{bookProtocl},#{bookName},#{author},#{bookConcerm},#{status},#{bookTypeId},#{orderPrices},#{usedPrices},#{photoPath},#{localPhotoPath},#{pageNum})")
 	int saveBookInfo(BookInfo book);
 	
 	@Update("update book_info set info_modify_time = now(),book_protocl = #{bookProtocl} ,book_name = #{bookName},author =#{author},book_concerm = #{bookConcerm},status = #{status},"

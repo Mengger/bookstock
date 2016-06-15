@@ -79,7 +79,45 @@ public class BookInfo {
 	 */
 	private String pageNum;
 
+	/**
+	 * 雇员id
+	 */
+	private String createrId;
 	
+	/**
+	 * 图书审核状态(1.已审核 0.待审核)
+	 */
+	private Integer infoStatus;
+	
+	/**
+	 * 创建方式(1.internet 2.employee)
+	 */
+	private String bookCreateWay;
+	
+	public String getCreaterId() {
+		return createrId;
+	}
+
+	public void setCreaterId(String createrId) {
+		this.createrId = createrId;
+	}
+
+	public Integer getInfoStatus() {
+		return infoStatus;
+	}
+
+	public void setInfoStatus(Integer infoStatus) {
+		this.infoStatus = infoStatus;
+	}
+
+	public String getBookCreateWay() {
+		return bookCreateWay;
+	}
+
+	public void setBookCreateWay(String bookCreateWay) {
+		this.bookCreateWay = bookCreateWay;
+	}
+
 	public String getLocalPhotoPath() {
 		return localPhotoPath;
 	}

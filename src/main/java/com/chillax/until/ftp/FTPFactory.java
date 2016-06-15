@@ -30,8 +30,8 @@ public class FTPFactory {
 			FTPDefultConfig=p.getProperty("FTPUploadDefult");
 			int count=Integer.valueOf(p.getProperty("ftpCount"));
 			for (int i = 1; i < count+1; i++) {
-				String FTPConfig=null;
-				String ftpConfigPath=p.getProperty(FTPConfig)+i;
+				String FTPConfig="FTPConfig"+i;
+				String ftpConfigPath=p.getProperty(FTPConfig);
 				FTPBeans.put(FTPConfig, loadFTPConfigBean(ftpConfigPath));
 			}
 		} catch (IOException e) {

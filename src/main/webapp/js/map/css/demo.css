@@ -1,0 +1,6 @@
+﻿div.ali-map-selector {
+	min-height: 400px;
+}
+.ali-map-selector > .ali-container-menu {
+	display: none;
+}

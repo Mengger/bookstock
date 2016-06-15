@@ -13,7 +13,10 @@ create table book_info(
 	photo_path varchar(150) CHARACTER SET utf8 comment '照片地址', 
 	local_photo_path varchar(150) CHARACTER SET utf8 comment '本地FTP照片地址   FTP:/PATH/IMG(FTP代号:相对路径)', 
 	photo_use Integer comment '书本图片取值位置 0代表取别人的图片,1代表取自己FTP的', 
-	page_num varchar(5) CHARACTER SET utf8  comment '页数' 
+	page_num varchar(5) CHARACTER SET utf8  comment '页数' ,
+	creater_id varchar(5) not null PRIMARY KEY comment '雇员id',
+	info_status Integer comment '图书审核状态(1.已审核 0.待审核)',
+	book_create_way Integer comment '创建方式(1.internet 2.employee)'
 ) comment '图书属性表' DEFAULT CHARSET=utf8;
 
 create table get_order(  

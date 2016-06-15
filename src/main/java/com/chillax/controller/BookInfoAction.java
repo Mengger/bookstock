@@ -54,7 +54,7 @@ public class BookInfoAction {
 		}
 	}
 	
-	@RequestMapping(method = RequestMethod.GET , value="/bookInfo")
+	@RequestMapping(method = RequestMethod.POST , value="/bookInfo")
 	@ResponseBody
 	public SingleResultDO<BookInfoVo> queryBookInfoById(String bookId){
 		SingleResultDO<BookInfoVo> rtn=new SingleResultDO<BookInfoVo>();
@@ -75,7 +75,7 @@ public class BookInfoAction {
 		return rtn;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET , value="/saveInfo")
+	@RequestMapping(method = RequestMethod.POST , value="/saveInfo")
 	@ResponseBody
 	public SingleResultDO<String> saveBookInfo(String bookId,String bookProtocl,String bookName,String loaclPath,
 			String bookConcern,String bookAuthor,int orderPrices,String bookPageNum,String bookPhotoPath){
@@ -91,6 +91,7 @@ public class BookInfoAction {
 		String ftpPath;
 		try {
 			ftpPath = RedisManager.getValueByKeyAndGroup("GROUP_0", bookId);
+			System.out.println("****************************"+ftpPath);
 			if(!StringUtils.isBlank(ftpPath)){
 				book.setLocalPhotoPath(FTPFactory.FTPDefultConfig+":"+ftpPath);
 				RedisManager.removeByKeyAndGroup("GROUP_0", bookId);
