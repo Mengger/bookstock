@@ -184,7 +184,11 @@ function showBookInfo(){
 					$("#book_author").html(bookInfo.author);
 					$("#order_prices").html(bookInfo.orderPrices/100+"元");
 					$("#book_page_num").html(bookInfo.pageNum);
-					$("#book_photo_path").attr('src',bookInfo.photoPath);
+					if(bookInfo.bookCreateWay==2){
+						$("#book_photo_path").attr('src',bookInfo.localPhotoPath);
+					}else{
+						$("#book_photo_path").attr('src',bookInfo.photoPath);
+					}
 					
 					$("#book_id_info_input").val(bookInfo.bookId);
 					$("#book_protocl_input").val(bookInfo.bookProtocl);
@@ -262,6 +266,9 @@ function saveBookInfo(){
 		}
 	if(!isCreater){
 		data["bookPhotoPath"]=$("#book_photo_path").attr('src');
+	}
+	if(!uploadPicResult){
+		uploadCompressImg();
 	}
 	$.ajax({
 		url:'../saveInfo.action',

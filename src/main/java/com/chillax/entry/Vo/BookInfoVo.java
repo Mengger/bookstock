@@ -50,13 +50,4 @@ public class BookInfoVo extends BookInfo {
 		super(bookInfo);
 	}
 
-	public BookInfoVo(Date infoCreateTime, Date infoModifyTime, String bookId, String bookProtocl, String bookName,
-			String author, String bookConcerm, Integer status, String bookTypeId, Integer orderPrices,
-			Integer usedPrices, String photoPath, String pageNum, Integer bookFrom,String localPhotoPath) {
-		super(infoCreateTime, infoModifyTime, bookId, bookProtocl, bookName, author, bookConcerm, status, bookTypeId,
-				orderPrices, usedPrices, photoPath, pageNum, localPhotoPath);
-		this.bookFrom = bookFrom;
-	}
-
-	
 }

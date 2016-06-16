@@ -22,7 +22,7 @@ public class BookInfo {
 	/**
 	 * 图书编号
 	 */
-	private String bookId;
+	private Long bookId;
 	
 	/**
 	 * 编号协议(ISBN、ISSN、ISRC)
@@ -82,7 +82,7 @@ public class BookInfo {
 	/**
 	 * 雇员id
 	 */
-	private String createrId;
+	private Long createrId;
 	
 	/**
 	 * 图书审核状态(1.已审核 0.待审核)
@@ -92,13 +92,13 @@ public class BookInfo {
 	/**
 	 * 创建方式(1.internet 2.employee)
 	 */
-	private String bookCreateWay;
+	private Integer bookCreateWay;
 	
-	public String getCreaterId() {
+	public Long getCreaterId() {
 		return createrId;
 	}
 
-	public void setCreaterId(String createrId) {
+	public void setCreaterId(Long createrId) {
 		this.createrId = createrId;
 	}
 
@@ -110,11 +110,11 @@ public class BookInfo {
 		this.infoStatus = infoStatus;
 	}
 
-	public String getBookCreateWay() {
+	public Integer getBookCreateWay() {
 		return bookCreateWay;
 	}
 
-	public void setBookCreateWay(String bookCreateWay) {
+	public void setBookCreateWay(Integer bookCreateWay) {
 		this.bookCreateWay = bookCreateWay;
 	}
 
@@ -142,11 +142,11 @@ public class BookInfo {
 		this.infoModifyTime = infoModifyTime;
 	}
 
-	public String getBookId() {
+	public Long getBookId() {
 		return bookId;
 	}
 
-	public void setBookId(String bookId) {
+	public void setBookId(Long bookId) {
 		this.bookId = bookId;
 	}
 
@@ -230,9 +230,9 @@ public class BookInfo {
 		this.pageNum = pageNum;
 	}
 
-	public BookInfo(Date infoCreateTime, Date infoModifyTime, String bookId, String bookProtocl, String bookName,
+	public BookInfo(Date infoCreateTime, Date infoModifyTime, Long bookId, String bookProtocl, String bookName,
 			String author, String bookConcerm, Integer status, String bookTypeId, Integer orderPrices,
-			Integer usedPrices, String photoPath, String pageNum,String localPhotoPath) {
+			Integer usedPrices, String photoPath, String pageNum,String localPhotoPath,Long createrId,Integer bookCreateWay,Integer infoStatus) {
 		super();
 		this.infoCreateTime = infoCreateTime;
 		this.infoModifyTime = infoModifyTime;
@@ -248,6 +248,9 @@ public class BookInfo {
 		this.photoPath = photoPath;
 		this.pageNum = pageNum;
 		this.localPhotoPath=localPhotoPath;
+		this.createrId=createrId;
+		this.bookCreateWay=bookCreateWay;
+		this.infoStatus=infoStatus;
 	}
 
 	public BookInfo() {
@@ -268,6 +271,9 @@ public class BookInfo {
 		this.photoPath = bookInfo.getPhotoPath();
 		this.pageNum = bookInfo.getPageNum();
 		this.localPhotoPath=bookInfo.getLocalPhotoPath();
+		this.createrId=bookInfo.getCreaterId();
+		this.bookCreateWay=bookInfo.getBookCreateWay();
+		this.infoStatus=bookInfo.getInfoStatus();
 	}
 	
 }

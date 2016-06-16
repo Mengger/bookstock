@@ -62,7 +62,7 @@ public class BookInfoServiceImpl implements IbookInfoService {
         	}else if(info.contains("页数")){
         		bookInfo.setPageNum(info.replaceAll("页数", "").replace("：", ""));
         	}else if(info.contains("ISBN")||info.contains("ISRC")||info.contains("ISSN")){
-        		bookInfo.setBookId(info.replaceAll("ISBN", "").replace("ISRC", "").replace("ISSN", "").replace("：", ""));
+        		bookInfo.setBookId(Long.valueOf(info.replaceAll("ISBN", "").replace("ISRC", "").replace("ISSN", "").replace("：", "")));
         		if(info.contains("ISBN")){
            			bookInfo.setBookProtocl("ISBN");
         		}else if(info.contains("ISRC")){

@@ -1,7 +1,7 @@
 create table book_info( 
 	info_create_time  date not null comment  '创建时间', 
 	info_modify_time date not null  comment  '修改时间', 
-	book_id varchar(15) CHARACTER SET utf8 not null PRIMARY KEY comment '图书编号', 
+	book_id BIGINT(15) not null PRIMARY KEY comment '图书编号', 
 	book_protocl varchar(5) CHARACTER SET utf8 comment '编号协议(1.ISBN、2.ISSN、3.ISRC)', 
 	book_name varchar(100) CHARACTER SET utf8 not null comment '图书名称', 
 	author varchar(20) CHARACTER SET utf8 comment '作者', 
@@ -14,7 +14,7 @@ create table book_info(
 	local_photo_path varchar(150) CHARACTER SET utf8 comment '本地FTP照片地址   FTP:/PATH/IMG(FTP代号:相对路径)', 
 	photo_use Integer comment '书本图片取值位置 0代表取别人的图片,1代表取自己FTP的', 
 	page_num varchar(5) CHARACTER SET utf8  comment '页数' ,
-	creater_id varchar(5) not null PRIMARY KEY comment '雇员id',
+	creater_id varchar(5)  comment '雇员id',
 	info_status Integer comment '图书审核状态(1.已审核 0.待审核)',
 	book_create_way Integer comment '创建方式(1.internet 2.employee)'
 ) comment '图书属性表' DEFAULT CHARSET=utf8;
@@ -22,9 +22,9 @@ create table book_info(
 create table get_order(  
 	create_time  date not null comment  '创建时间',  
 	modify_time date not null  comment  '修改时间',  
-	parent_id varchar(14) not null comment '父订单id',  
-	order_id varchar(14) not null PRIMARY KEY comment '子订单id',  
-	book_id varchar(15) not null comment '图书编号',  
+	parent_id BIGINT(14) not null comment '父订单id',  
+	order_id BIGINT(14) not null PRIMARY KEY comment '子订单id',  
+	book_id BIGINT(15) not null comment '图书编号',  
 	book_prices Integer comment '回收价格',  
 	tip  Integer comment '回收小费',  
 	employee_id  Integer comment '雇员id',  
@@ -35,7 +35,7 @@ create table get_order(
 create table employee_info( 
 	create_time  date not null comment  '创建时间',  
 	modify_time date not null  comment  '修改时间',  
-	id varchar(5) not null PRIMARY KEY comment '雇员id',
+	id BIGINT(5) not null PRIMARY KEY comment '雇员id',
 	name varchar(16) CHARACTER SET utf8  comment '雇员名字',
 	id_card varchar(20) comment '身份证号码',
 	birth_place varchar(150) CHARACTER SET utf8 comment '出生地',
@@ -51,10 +51,10 @@ create table employee_info(
 create table school_info( 
 	create_time  date not null comment  '创建时间',  
 	modify_time date not null  comment  '修改时间',  
-	school_id varchar(7) comment '学校id',
+	school_id BIGINT(7) comment '学校id',
 	school_name varchar(150) CHARACTER SET utf8  comment '学校名称',
 	school_address varchar(150) CHARACTER SET utf8 comment '学校地址(主要地址)',
-	area_id varchar(3) comment '学校区块id',
+	area_id BIGINT(3) comment '学校区块id',
 	area_name varchar(50) CHARACTER SET utf8 comment '区块名称',
 	area_address varchar(250) CHARACTER SET utf8 comment '区块地址',
 	pox varchar(20) comment '区块经纬度(经度｜纬度)',
@@ -64,8 +64,8 @@ create table school_info(
 create table sale_order( 
 	create_time  date not null comment  '创建时间',  
 	modify_time date not null  comment  '修改时间',  
-	order_id varchar(14) comment '订单号',
-	book_id varchar(15) comment '书编号',
+	order_id BIGINT(14) comment '订单号',
+	book_id BIGINT(15) comment '书编号',
 	prices Integer comment '价格（分)',
 	order_num varchar(6) comment '数量',
 	buyer_id varchar(10) comment '买家id',
@@ -77,7 +77,7 @@ create table buyer_info(
 	modify_time date not null  comment  '修改时间', 
 	buyer_id varchar(10) not null  comment '买家id',
 	buyer_name varchar(20) CHARACTER SET utf8 comment '买家姓名',
-	buyer_id_card varchar(20) comment '买家身份证',
+	buyer_id_card BIGINT(20) comment '买家身份证',
 	buyer_address varchar(150) CHARACTER SET utf8 comment '买家地址',
 	buyer_phone varchar(11) comment '买家电话',
 	buyer_qq varchar(12) comment 'qq',

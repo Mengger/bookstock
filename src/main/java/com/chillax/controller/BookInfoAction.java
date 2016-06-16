@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.chillax.entry.BookInfo;
 import com.chillax.entry.Vo.BookInfoVo;
 import com.chillax.entry.enums.ErrorCodeEnum;
@@ -36,7 +37,7 @@ public class BookInfoAction {
 	@Resource
 	private IbookInfoService bookInfoService;
 	
-	@RequestMapping("/imgStream/ftpPath")
+	@RequestMapping(method = RequestMethod.GET,value="/imgStream")
 	public void GetImageStream(String ftpPath,HttpServletRequest request, HttpServletResponse response){
 		String []pathInfos=ftpPath.split(":");
 		FtpUtil f = new FtpUtil();
@@ -56,16 +57,22 @@ public class BookInfoAction {
 	
 	@RequestMapping(method = RequestMethod.POST , value="/bookInfo")
 	@ResponseBody
-	public SingleResultDO<BookInfoVo> queryBookInfoById(String bookId){
+	public SingleResultDO<BookInfoVo> queryBookInfoById(String bookId,HttpServletRequest request){
+		request.getSession().setAttribute("aaa", "234213423");
+		System.out.println("++++++++++++++++++++"+request.getSession().getId());
+		System.out.println(JSON.toJSON(request.getSession().getValueNames()));
 		SingleResultDO<BookInfoVo> rtn=new SingleResultDO<BookInfoVo>();
 		if(null==bookId){
 			rtn.setSuccess(false);
 			rtn.setErrorCode(ErrorCodeEnum.Error_input.getErrorCode());
 			rtn.setErrorDesc(ErrorCodeEnum.Error_input.getErrorMessage());
 		}
-		
 		try {
-			rtn.setResult(bookInfoService.queryDBThenInterNet(bookId));
+			BookInfoVo bookInfo=bookInfoService.queryDBThenInterNet(bookId);
+			if(bookInfo.getBookCreateWay()!=null&&bookInfo.getBookCreateWay().equals(2)){
+				bookInfo.setLocalPhotoPath("../imgStream.action?ftpPath="+bookInfo.getLocalPhotoPath());
+			}
+			rtn.setResult(bookInfo);
 		} catch (Exception e) {
 			log.error("queryBookInfoById error ____bookId:"+bookId,e);
 			rtn.setSuccess(false);
@@ -79,8 +86,18 @@ public class BookInfoAction {
 	@ResponseBody
 	public SingleResultDO<String> saveBookInfo(String bookId,String bookProtocl,String bookName,String loaclPath,
 			String bookConcern,String bookAuthor,int orderPrices,String bookPageNum,String bookPhotoPath){
+		SingleResultDO<String> rtn=new SingleResultDO<String>();
+		Long bookid=null;
+		try {
+			bookid=Long.valueOf(bookId);
+		} catch (Exception e) {
+			rtn.setSuccess(false);
+			rtn.setErrorCode(ErrorCodeEnum.Error_input.getErrorCode());
+			rtn.setErrorDesc(ErrorCodeEnum.Error_input.getErrorMessage());
+			return rtn;
+		}
 		BookInfo book=new BookInfo();
-		book.setBookId(bookId);
+		book.setBookId(bookid);
 		book.setBookProtocl(bookProtocl);
 		book.setBookName(bookName);
 		book.setBookConcerm(bookConcern);
@@ -90,17 +107,16 @@ public class BookInfoAction {
 		book.setPhotoPath(bookPhotoPath);
 		String ftpPath;
 		try {
-			ftpPath = RedisManager.getValueByKeyAndGroup("GROUP_0", bookId);
-			System.out.println("****************************"+ftpPath);
+			ftpPath = RedisManager.getValueByKeyAndGroup("GROUP_0", bookId.toString());
 			if(!StringUtils.isBlank(ftpPath)){
 				book.setLocalPhotoPath(FTPFactory.FTPDefultConfig+":"+ftpPath);
-				RedisManager.removeByKeyAndGroup("GROUP_0", bookId);
+				book.setBookCreateWay(2);//客户自己上传图片
+				RedisManager.removeByKeyAndGroup("GROUP_0", bookId.toString());
 				RedisManager.removeByKeyAndGroup("GROUP_0", bookId+"_path");
 			}
 		} catch (Exception e) {
 			log.error("redis is error",e);
 		}
-		SingleResultDO<String> rtn=new SingleResultDO<String>();
 		try {
 			bookInfoService.saveBookInfo(book);
 			rtn.setSuccess(true);
@@ -171,5 +187,4 @@ public class BookInfoAction {
         }
         return rtn;  
     }  
-	
 }

@@ -24,7 +24,7 @@ public class RedisManager {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String getValueByKeyAndGroup(String group,String key)throws Exception{
+	public static String getValueByKeyAndGroup(String group,String key){
 		if(key==null || "".equals(key)){
 			log.error("写入key值内容为空，请检查！");
 			return null;
@@ -45,7 +45,7 @@ public class RedisManager {
 	 * @param value
 	 * @throws Exception
 	 */
-	public static void setValueByKeyAndGroup(String group,String key,String value)throws Exception{
+	public static void setValueByKeyAndGroup(String group,String key,String value){
 		if(key==null || "".equals(key)){
 			log.error("写入key值内容为空，请检查！");
 			return;
