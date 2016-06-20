@@ -106,7 +106,7 @@ public class RedisManager {
 	 * @param value
 	 * 
 	 */
-	public static long getCountByKeyAndInc(String group,String key) throws Exception {
+	public static long getCountByKeyAndInc(String group,String key){
 		try{
 			return InitRedisClient.getCountByKeyAndInc(group, key);
 		}catch(Exception e){
@@ -147,5 +147,55 @@ public class RedisManager {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+	  
+	/**
+	 * 根据key值存储value值 并设定超时时间
+	 * @param group 分组GROUP_1
+	 * @param key
+	 * @param value
+	 * @throws Exception
+	 */
+	public static void setValueByKeyAndGroupSetTime(String group,String key,String value,int timeoutSecond){
+		if(key==null || "".equals(key)){
+			log.error("写入key值内容为空，请检查！");
+			return;
+		}
+		if(value==null || "".equals(value)){
+			log.error("写入value值内容为空，请检查！");
+			return;
+		}
+		try{
+			InitRedisClient.writeValueByKeyAndGroup(group,  key, value);	
+			InitRedisClient.expire(group, key,timeoutSecond);
+		}catch(Exception e){
+			log.error("redis exception writeValue by key-value:"+key+"-"+value);
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 根据key值存储value值 并设定默认半小时
+	 * @param group 分组GROUP_1
+	 * @param key
+	 * @param value
+	 * @throws Exception
+	 */
+	public static void setValueByKeyAndGroupDedultTime(String group,String key,String value){
+		if(key==null || "".equals(key)){
+			log.error("写入key值内容为空，请检查！");
+			return;
+		}
+		if(value==null || "".equals(value)){
+			log.error("写入value值内容为空，请检查！");
+			return;
+		}
+		try{
+			InitRedisClient.writeValueByKeyAndGroup(group,  key, value);	
+			InitRedisClient.expire(group, key,30*60);
+		}catch(Exception e){
+			log.error("redis exception writeValue by key-value:"+key+"-"+value);
+			e.printStackTrace();
+		}
 	}
 }

@@ -32,7 +32,7 @@ public class RedisPersistTest {
 			System.out.println("删除之后key szf----"+nodelstr);
 			
 			//清空所有的缓存
-		//	RedisManager.removeAllByGroup("GROUP_0");
+			RedisManager.removeAllByGroup("GROUP_0");
 			String removeSuizf=RedisManager.getValueByKeyAndGroup("GROUP_0", "suizf");
 			String removeSzf=RedisManager.getValueByKeyAndGroup("GROUP_0", "szf");
 			System.out.println("获取key suizf----"+removeSuizf);

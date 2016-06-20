@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.chillax.entry.BookInfo;
 import com.chillax.entry.Vo.BookInfoVo;
 import com.chillax.entry.enums.ErrorCodeEnum;
@@ -58,9 +57,6 @@ public class BookInfoAction {
 	@RequestMapping(method = RequestMethod.POST , value="/bookInfo")
 	@ResponseBody
 	public SingleResultDO<BookInfoVo> queryBookInfoById(String bookId,HttpServletRequest request){
-		request.getSession().setAttribute("aaa", "234213423");
-		System.out.println("++++++++++++++++++++"+request.getSession().getId());
-		System.out.println(JSON.toJSON(request.getSession().getValueNames()));
 		SingleResultDO<BookInfoVo> rtn=new SingleResultDO<BookInfoVo>();
 		if(null==bookId){
 			rtn.setSuccess(false);
@@ -168,8 +164,8 @@ public class BookInfoAction {
             	ByteArrayInputStream in=new ByteArrayInputStream(b);
         		boolean con=f.uploadFile(in,bookId+"."+imgType,filePath);
         		if (con) {
-					RedisManager.setValueByKeyAndGroup("GROUP_0", bookId, filePath+"/"+bookId+"."+imgType);
-					RedisManager.setValueByKeyAndGroup("GROUP_0", bookId+"_path", filePath);
+					RedisManager.setValueByKeyAndGroupDedultTime("GROUP_0", bookId, filePath+"/"+bookId+"."+imgType);
+					RedisManager.setValueByKeyAndGroupDedultTime("GROUP_0", bookId+"_path", filePath);
 					rtn.setSuccess(true);
 				}
         		in.close();

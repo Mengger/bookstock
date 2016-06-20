@@ -2,6 +2,7 @@ package com.chillax.filter;
 
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -35,17 +36,29 @@ public class SessionFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 	//	HttpServletResponse res = (HttpServletResponse) response;
 		HttpSession session = req.getSession(true);
+		SessionBean sessionBean=null;
 		String sessionId=null;
+		out:
 		for(Cookie cookie:req.getCookies()){
 			if("JSESSIONID".equals(cookie.getName())){
 				sessionId=cookie.getValue();
-				String value=RedisManager.getValueByKeyAndGroup("GROUP_0", sessionId);
-				session=JSON.parseObject(value, session.getClass());
+				String value=RedisManager.getValueByKeyAndGroup("GROUP_0", "JSESSION_"+sessionId);
+				sessionBean=JSON.parseObject(value, new SessionBean().getClass());
+				break out;
 			}
 		}
-		
-		System.out.println("--------------------"+req.getSession().getId());
-		req.getSession().setAttribute("11", "22");
+		if(sessionBean==null){
+			//新会话,第一次会话
+			sessionBean=new SessionBean();
+			sessionBean.setSessionId(req.getSession().getId());
+			sessionBean.setCreateTime(new Date().getTime());
+		}else{
+			//二次会话
+			sessionBean.getSession(req.getSession());
+		}
+		if(sessionId==null){
+			sessionId=req.getSession().getId();
+		}
 		// 判断如果没有取到用户信息,就跳转到登陆页面
 		/*if (username == null || "".equals(username)) {
 			// 跳转到登陆页面
@@ -58,8 +71,9 @@ public class SessionFilter implements Filter {
 			// 
 		}*/
 		chain.doFilter(request, response);
-		System.out.println(JSON.toJSON(req.getSession().getValueNames()));
-		RedisManager.setValueByKeyAndGroup("GROUP_0", sessionId, JSON.toJSONString(req.getSession()));
+		sessionBean.setLastModifyTime(new Date().getTime());
+		RedisManager.setValueByKeyAndGroup("GROUP_0", "JSESSION_"+sessionBean.getSessionId(), JSON.toJSONString(sessionBean.UpdateSessionBean(session)));
+		RedisManager.expire("GROUP_0", sessionBean.getSessionId(), sessionBean.getMaxInactiveInterval());
 	}
 
 	@Override
