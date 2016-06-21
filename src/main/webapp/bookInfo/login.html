@@ -10,6 +10,7 @@
     <title>登录</title>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
     <!-- Custom styles for this template -->
     <style type="text/css">
     	body {
@@ -63,20 +64,52 @@
 
 <body>
 
-	<div class="container">
+	<form class="container">
 
-		<form class="form-signin">
+		<div class="form-signin">
 			<h2 class="form-signin-heading">请登录</h2>
-			<input type="text" id="inputEmail" class="form-control" placeholder="请输入登录账号" required autofocus>
-			<input type="password" id="inputPassword" class="form-control" placeholder="请输入密码" required>
+			<input type="text" id="inputLoginId" name="inputLoginId" class="form-control" placeholder="请输入登录账号" required autofocus>
+			<input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="请输入密码" required>
 			<div class="input-group">
 				<input type="text" id="verifyCode" style="width:160px;" class="form-control" placeholder="请输入验证码" required>
-				<img alt="验证码" class="verify-image" src="http://www.outdovote.cn/images/documents/image007.jpg">
+				<img alt="验证码" class="verify-image" src="../verifyCode.action">
 			</div>
-			<button class="btn btn-lg btn-primary btn-block" type="buttom">登录</button>
-		</form>
+			<button class="btn btn-lg btn-primary btn-block" id="login" type="buttom">登录</button>
+		</div>
 
-	</div>
+	</form>
 	<!-- /container -->
 </body>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		$("form").submit(function (){
+			verifyLongin();
+		});
+	});
+
+	function verifyLongin(){
+		$.ajax({
+			url:'../loginVerify.action',
+			data:{
+				inputLoginId:$("#inputLoginId").val(),
+				inputPassword:$("#inputPassword").val(),
+				verifyCode:$("#verifyCode").val()
+			},
+			type:'post',
+			dataType: 'json',
+			success:function(res){
+				if(res.success){
+		        	window.location.href="res.result";
+		        }else{
+		        	alert(res.errorDesc);
+		        }
+			},
+			error:function(res){
+				alert("登录失败,请稍后再试！");
+			}
+		});
+	}
+
+</script>
 </html>
