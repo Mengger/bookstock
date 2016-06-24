@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @TransactionConfiguration(defaultRollback = false)
-@ContextConfiguration("classpath:/config/spring-mvc.xml")
+@ContextConfiguration("classpath:/config/applicationContent.xml")
 public class TestLoadBean {
 
 }

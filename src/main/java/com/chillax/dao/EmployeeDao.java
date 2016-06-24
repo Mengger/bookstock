@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import com.chillax.entry.EmployeeInfo;
@@ -40,4 +41,22 @@ public interface EmployeeDao {
 	})
 	List<EmployeeInfo> queryEmployInfoList(EmployeeInfo employee);
 	
+	
+	
+	@Update("<script>update employee_info "
+			+"<set>"
+				+ "<if test=\"name !=null \"> name = #{name} ,</if>"
+				+ "<if test=\"pwd !=null \"> pwd = #{pwd} ,</if>"
+				+ "<if test=\"idCard !=null \"> id_card = #{idCard} ,</if>"
+				+ "<if test=\"birthPlace !=null \"> birth_place = #{birthPlace} ,</if>"
+				+ "<if test=\"managerId !=null \"> manager_id = #{managerId} ,</if>"
+				+ "<if test=\"areaId !=null \"> area_id = #{areaId} ,</if>"
+				+ "<if test=\"schoolId !=null \"> school_id = #{schoolId} ,</if>"
+				+ "<if test=\"photoPath !=null \"> photo_path = #{photoPath} ,</if>"
+				+ "<if test=\"idCardPath !=null \"> id_Card_Path = #{idCardPath} ,</if>"
+				+ "<if test=\"info !=null \"> info = #{info} ,</if>"
+			+"</set>"
+			+"where id = #{id}"
+			+ "</script>")
+	int updateEmployInfo(EmployeeInfo EmployeeInfo);
 }
