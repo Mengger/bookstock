@@ -54,7 +54,7 @@ public class BookInfoAction {
 		}
 	}
 	
-	@RequestMapping(method = RequestMethod.POST , value="/bookInfo")
+	@RequestMapping(method = RequestMethod.GET , value="/bookInfo")
 	@ResponseBody
 	public SingleResultDO<BookInfoVo> queryBookInfoById(String bookId,HttpServletRequest request){
 		SingleResultDO<BookInfoVo> rtn=new SingleResultDO<BookInfoVo>();
@@ -62,6 +62,7 @@ public class BookInfoAction {
 			rtn.setSuccess(false);
 			rtn.setErrorCode(ErrorCodeEnum.Error_input.getErrorCode());
 			rtn.setErrorDesc(ErrorCodeEnum.Error_input.getErrorMessage());
+			return rtn;
 		}
 		try {
 			BookInfoVo bookInfo=bookInfoService.queryDBThenInterNet(bookId);

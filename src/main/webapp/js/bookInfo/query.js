@@ -155,7 +155,7 @@ function showBookInfo(){
 		data:{
 			bookId:$("#book_id").val()
 		},
-		type:'post',
+		type:'get',
 		success:function(data){
 			initCleanInfo();
 			$("#add_book_info").hide();
