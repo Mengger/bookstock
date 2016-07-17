@@ -4,7 +4,6 @@ import com.chillax.entry.BookInfo;
 import com.chillax.entry.Vo.BookInfoVo;
 
 public interface IbookInfoService {
-
 	/**
 	 * 根据bookid查询数据库中的bookinfo
 	 * @return
