@@ -1,4 +1,4 @@
-package bookstock.com.chillax.test;
+package com.bookrecovery.test;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
