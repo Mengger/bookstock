@@ -22,5 +22,6 @@
       
     <!-- 导入数据库事务配置 -->  
     <import resource="spring-tx.xml"/>  
-      
+     <!-- 导入redis配置 -->  
+    <import resource="redis-config.xml"/>  
 </beans>  
