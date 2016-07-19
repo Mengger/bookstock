@@ -11,8 +11,8 @@
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">  
                           
     <!-- 使用注解式注入 -->  
-    <context:component-scan base-package="com.chillax.dao"/>  
-    <context:component-scan base-package="com.chillax.service.impl" />  
+    <context:component-scan base-package="com.bookrecovery.dao"/>  
+    <context:component-scan base-package="com.bookrecovery.service.impl" />  
     
     <!-- 导入DAO配置 -->  
     <import resource="spring-dao.xml"/>  

@@ -219,7 +219,16 @@
 			  	</webApp>
 			  </configuration>
 			</plugin>
-			
+			<!-- 解决maven与eclipse中@override出现must override a superclass method错误 -->
+			<plugin>  
+			  <groupId>org.apache.maven.plugins</groupId>  
+			  <artifactId>maven-compiler-plugin</artifactId>  
+			  <version>2.1</version>  
+			  <configuration>  
+			    <source>1.6</source>  
+			    <target>1.6</target>  
+			  </configuration>  
+			</plugin>  
 		</plugins>
 	</build>
 </project>
