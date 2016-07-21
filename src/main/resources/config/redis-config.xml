@@ -27,7 +27,7 @@
 				<bean class="com.bookrecovery.cache.SpringRedisCache">
 					<property name="redisTemplate" ref="redisTemplate" />
 					<property name="name" value="sessionShare" />
-					<property name="expire" value="60" />
+					<property name="expire" value="1800" />
 				</bean>
 			</set>
 		</property>

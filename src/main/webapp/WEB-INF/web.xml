@@ -10,7 +10,7 @@
 
 	<filter>
 		<filter-name>sessionShare</filter-name>
-		<filter-class>com.chillax.filter.SessionFilter</filter-class>
+		<filter-class>com.bookrecovery.filter.SessionFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>sessionShare</filter-name>

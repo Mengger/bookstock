@@ -26,7 +26,17 @@ public class SpringRedisCache implements Cache{
 	private String name;
     private Long expire;
     
+    public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate){
+    	this.redisTemplate=redisTemplate;
+    }
     
+    public void setName(String name){
+    	this.name=name;
+    }
+    
+    public void setExpire(Long expire){
+    	this.expire=expire;
+    }
     private static final String DELETE_SCRIPT_IN_LUA = "local list={%s} "
             + "for _,key in pairs(list) do " + "    local keys = redis.call('keys', key) "
             + "    for i,k in ipairs(keys) do " + "        redis.call('del', k) " + "    end "
