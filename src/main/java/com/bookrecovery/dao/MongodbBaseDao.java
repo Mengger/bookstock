@@ -93,7 +93,7 @@ public abstract class MongodbBaseDao<T> {
     }
 	
 	/**
-	 * 通过条件查询更新数据
+	 * 通过条件查询更新第一条数据
 	 * 
 	 * @param query
 	 * @param update
@@ -101,6 +101,17 @@ public abstract class MongodbBaseDao<T> {
 	 */
 	public void updateFirst(Query query, Update update) {
 		mongoTemplate.updateFirst(query, update, this.getEntityClass());
+	}
+	
+	/**
+	 * 通过条件查询更新所有数据
+	 * 
+	 * @param query
+	 * @param update
+	 * @return
+	 */
+	public void updateAll(Query query, Update update) {
+		mongoTemplate.updateMulti(query, update, this.getEntityClass());
 	}
 
 	/**
@@ -112,6 +123,16 @@ public abstract class MongodbBaseDao<T> {
 	public T save(T bean) {
 		mongoTemplate.save(bean);
 		return bean;
+	}
+	
+	/**
+	 * 保存一个对象到mongodb
+	 * 
+	 * @param bean
+	 * @return
+	 */
+	public void insert(T bean) {
+		mongoTemplate.insert(bean);
 	}
 
 	/**

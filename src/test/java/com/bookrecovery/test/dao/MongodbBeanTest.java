@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 
 import com.alibaba.fastjson.JSON;
 import com.bookrecovery.dao.BookInfoCache;
@@ -18,11 +19,10 @@ public class MongodbBeanTest extends TestLoadBean {
 	@Test
 	public void testInsertInfo(){
 		BookInfo bean=new BookInfo();
+		bean.setBookId(1000000000L);
 		bean.setAuthor("lisi");
-		bean.setBookConcerm("concern");
-		bean.setBookId(10978711111l);
 		bean.setBookName("bookname");
-		System.out.println(JSON.toJSONString(bookInfoCache.save(bean)));
+		bookInfoCache.insert(bean);
 	}
 	
 	@Test
@@ -32,5 +32,26 @@ public class MongodbBeanTest extends TestLoadBean {
 		criteria.where("author").is("lisi");
 		query.addCriteria(criteria);
 		System.out.println(JSON.toJSONString(bookInfoCache.find(query)));
+		System.out.println(JSON.toJSONString(bookInfoCache.findOne(query)));
+	}
+	
+	
+	@Test
+	public void testDeleteInfo(){
+		Query query=new Query();
+		Criteria criteria = new Criteria();
+		criteria.where("author").is("lisi");
+		query.addCriteria(criteria);
+		System.out.println(JSON.toJSONString(bookInfoCache.find(query)));
+		bookInfoCache.findAllAndRemove(query);
+	}
+	
+	@Test
+	public void testUpdateInfo(){
+		Query query=new Query();
+		Criteria criteria = new Criteria();
+		criteria.where("author").is("wangwu");
+		query.addCriteria(criteria);
+		bookInfoCache.updateAll(query, Update.update("author", "lisi"));
 	}
 }

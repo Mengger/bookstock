@@ -230,6 +230,16 @@ public class BookInfo {
 		this.pageNum = pageNum;
 	}
 
+	private String id;
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public BookInfo(Date infoCreateTime, Date infoModifyTime, Long bookId, String bookProtocl, String bookName,
 			String author, String bookConcerm, Integer status, String bookTypeId, Integer orderPrices,
 			Integer usedPrices, String photoPath, String pageNum,String localPhotoPath,Long createrId,Integer bookCreateWay,Integer infoStatus) {
