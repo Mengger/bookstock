@@ -1,5 +1,10 @@
 package com.bookrecovery.test.dao;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Vector;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -44,6 +49,13 @@ public class MongodbBeanTest extends TestLoadBean {
 		query.addCriteria(criteria);
 		System.out.println(JSON.toJSONString(bookInfoCache.find(query)));
 		bookInfoCache.findAllAndRemove(query);
+		
+		
+		List<BookInfo> rr=new ArrayList<BookInfo>();
+		rr.add(new BookInfo());
+		rr.add(new BookInfo());
+		rr.add(new BookInfo());
+		rr.add(new BookInfo());
 	}
 	
 	@Test

@@ -1,6 +1,4 @@
-package com.bookrecovery.entry.Vo;
-
-import java.util.Date;
+package com.bookrecovery.Vo;
 
 import com.bookrecovery.entry.BookInfo;
 

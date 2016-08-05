@@ -1,7 +1,7 @@
 package com.bookrecovery.service;
 
+import com.bookrecovery.Vo.BookInfoVo;
 import com.bookrecovery.entry.BookInfo;
-import com.bookrecovery.entry.Vo.BookInfoVo;
 
 public interface IbookInfoService {
 
