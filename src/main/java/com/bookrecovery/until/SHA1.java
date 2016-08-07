@@ -20,7 +20,7 @@ import com.bookrecovery.until.AesException;
  *
  * 计算公众平台的消息签名接口.
  */
-class SHA1 {
+public class SHA1 {
 
 	/**
 	 * 用SHA1算法生成安全签名
@@ -78,7 +78,6 @@ class SHA1 {
 			StringBuffer sb = new StringBuffer();
 			sb.append("jsapi_ticket=").append(jsapi_ticket).append("&noncestr=").append(noncestr).append("&timestamp=").append(timestamp).append("&url=").append(url);
 			String str = sb.toString();
-			System.out.println(str);
 			// SHA1签名生成
 			MessageDigest md = MessageDigest.getInstance("SHA-1");
 			md.update(str.getBytes());

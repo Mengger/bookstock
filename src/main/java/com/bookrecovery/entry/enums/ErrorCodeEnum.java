@@ -10,7 +10,7 @@ public enum ErrorCodeEnum {
 	Verify_Code_error("Verify_Code_error","验证码不正确"),
 	Success("success","成功"),
 	Book_exit("bookinfo is exit","该书本信息已存在");
-	 private final String errorCode;
+	private final String errorCode;
     private final String errorMessage;
 
     private ErrorCodeEnum(String errorCode, String errorMessage) {

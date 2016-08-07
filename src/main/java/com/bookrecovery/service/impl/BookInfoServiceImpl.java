@@ -2,6 +2,7 @@ package com.bookrecovery.service.impl;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -56,11 +57,15 @@ public class BookInfoServiceImpl implements IbookInfoService {
         for(String info:bookInfos){
         	info=info.replaceAll("&nbsp;", "").replaceAll("<p>", "").replaceAll("</p>", "").replaceAll(" ", "");
         	if(info.contains("作者")){
-        		bookInfo.setAuthor(dealQueryResult(StringRegexUntil.regexString(info, ">.*<")));
+        		if(StringUtils.isBlank(bookInfo.getAuthor()))
+        			bookInfo.setAuthor(dealQueryResult(StringRegexUntil.regexString(info, ">.*<")));
         	}else if(info.contains("出版社")){
-        		bookInfo.setBookConcerm(info.replace("出版社：", "").replace("：", ""));
+        		if(StringUtils.isBlank(bookInfo.getBookConcerm())){
+        			bookInfo.setBookConcerm(info.replace("出版社：", "").replace("：", ""));
+        		}
         	}else if(info.contains("页数")){
-        		bookInfo.setPageNum(info.replaceAll("页数", "").replace("：", ""));
+        		if(StringUtils.isBlank(bookInfo.getPageNum()))
+        			bookInfo.setPageNum(info.replaceAll("页数", "").replace("：", ""));
         	}else if(info.contains("ISBN")||info.contains("ISRC")||info.contains("ISSN")){
         		bookInfo.setBookId(Long.valueOf(info.replaceAll("ISBN", "").replace("ISRC", "").replace("ISSN", "").replace("：", "")));
         		if(info.contains("ISBN")){
