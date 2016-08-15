@@ -34,12 +34,12 @@ public class WechatTokenService {
 	 */
 	public static String getJsapiTicket(){
 		String jsapiTicket=RedisManager.getValueByKeyAndGroup("GROUP_0", "jsapi_ticket");
-		if(jsapiTicket==null){
+		if(jsapiTicket==null){	
 			jsapi_ticket_url=jsapi_ticket_url+getAccessToken()+"&type=jsapi";
 			String queryResult=HttpRequest.sendGet(jsapi_ticket_url, null);
 			Wechat rtn=JSON.parseObject(queryResult,Wechat.class);
 			jsapiTicket=rtn.getTicket();
-			RedisManager.setValueByKeyAndGroupSetTime("GROUP_0", "access_token", jsapiTicket, 7200);
+			RedisManager.setValueByKeyAndGroupSetTime("GROUP_0", "jsapi_ticket", jsapiTicket, 7200);
 		}
 		return jsapiTicket;
 	}

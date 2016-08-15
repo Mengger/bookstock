@@ -2,7 +2,7 @@
  * 
  */
 $(document).ready(function(){
-	
+	loadScannerQR();
 	document.getElementById('up').addEventListener('change', handleFileSelect,false);
 	//查询
 	$("#submit_book_id").click(function (){
@@ -14,6 +14,10 @@ $(document).ready(function(){
 	//修改
 	$("#modify_bookInfo").click(function (){
 		modifyBookInfo();
+	});
+	//扫描code
+	$("#scanner_book_id").click(function (){
+		openScanner();
 	});
 	
 	//保存
@@ -48,6 +52,54 @@ function init(){
 	$(".loading").hide();
 	$("#up").hide();
 	$("#add_book_info").hide();
+}
+
+function loadScannerQR(){
+	$.ajax({
+		url:"../wechatVerifyCode.action",
+		data:{
+			wechatQRcode:'scannerBookInfo',
+		},
+		type:'get',
+		dataType: 'json',
+		success:function(res){
+			if(res.success){
+				var result=res.result;
+				wx.config({
+				    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+				    appId: 'wx56247977be201113', // 必填，公众号的唯一标识
+				    timestamp: result.timestamp, // 必填，生成签名的时间戳
+				    nonceStr: result.nonceStr, // 必填，生成签名的随机串
+				    signature: result.signature,// 必填，签名，见附录1
+				    jsApiList: ['scanQRCode'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+				});
+	        }else{
+	        	alert("获取密钥失败");
+	        }
+		},
+		error:function(data){
+			alert("获取密钥失败");
+		}
+	});
+}
+
+function openScanner(){
+	wx.scanQRCode({
+	    needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+	    scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+	    success: function (res) {
+	    	var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+	    	var num=result.split(",")[1];
+	    	if(typeof(num)=="string"){
+	    		uploadPicResult=false;
+	    		isCreater=false;
+	    		$("#book_id").val(num);
+	    		showBookInfo();
+	    	}else{
+	    		alert("扫描失败，请手动输入");
+	    	}
+		}
+	});
 }
 
 function uploadCompressImg(){
@@ -155,7 +207,7 @@ function showBookInfo(){
 		data:{
 			bookId:$("#book_id").val()
 		},
-		type:'get',
+		type:'post',
 		success:function(data){
 			initCleanInfo();
 			$("#add_book_info").hide();
