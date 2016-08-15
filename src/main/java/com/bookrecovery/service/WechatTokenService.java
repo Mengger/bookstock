@@ -8,9 +8,9 @@ import com.bookrecovery.until.redis.load.RedisManager;
 
 public class WechatTokenService {
 
-	private static String access_tocke_url="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+WechatConfig.AppID+"&secret="+WechatConfig.AppSecret;
+	private static final String access_tocke_url="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+WechatConfig.AppID+"&secret="+WechatConfig.AppSecret;
 	
-	private static String jsapi_ticket_url="https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=";
+	private static final String jsapi_ticket_url="https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=";
 	
 	/**
 	 * 获取wechat的token
@@ -35,8 +35,8 @@ public class WechatTokenService {
 	public static String getJsapiTicket(){
 		String jsapiTicket=RedisManager.getValueByKeyAndGroup("GROUP_0", "jsapi_ticket");
 		if(jsapiTicket==null){	
-			jsapi_ticket_url=jsapi_ticket_url+getAccessToken()+"&type=jsapi";
-			String queryResult=HttpRequest.sendGet(jsapi_ticket_url, null);
+			String jsapi_ticket_url_new=jsapi_ticket_url+getAccessToken()+"&type=jsapi";
+			String queryResult=HttpRequest.sendGet(jsapi_ticket_url_new, null);
 			Wechat rtn=JSON.parseObject(queryResult,Wechat.class);
 			jsapiTicket=rtn.getTicket();
 			RedisManager.setValueByKeyAndGroupSetTime("GROUP_0", "jsapi_ticket", jsapiTicket, 7200);

@@ -56,7 +56,7 @@ function init(){
 
 function loadScannerQR(){
 	$.ajax({
-		url:"../wechatVerifyCode.action",
+		url:"wechatVerifyCode.action",
 		data:{
 			wechatQRcode:'scannerBookInfo',
 		},
@@ -109,7 +109,7 @@ function uploadCompressImg(){
 	}
 	var base64=$("#book_photo_path").attr("src");
 	$.ajax({
-		url:"../fileUploadBase64.action",
+		url:"fileUploadBase64.action",
 		data:{
 			base64:base64,
 			bookId:bookIdAllContent
@@ -171,7 +171,7 @@ function showInfoToSave(){
  */
 function upload(){
     $.ajaxFileUpload({
-        url:'../fileUpload.action',
+        url:'fileUpload.action',
         secureuri:false,
         fileElementId:'up',
         dataType: 'json',
@@ -323,7 +323,7 @@ function saveBookInfo(){
 		uploadCompressImg();
 	}
 	$.ajax({
-		url:'../saveInfo.action',
+		url:'saveInfo.action',
 		dataType:'json',
 		type:'post',
 		data:data,
