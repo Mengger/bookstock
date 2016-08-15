@@ -37,13 +37,13 @@ public class BookInfoServiceImpl implements IbookInfoService {
     		rtn.append("k").append(Integer.toHexString(id.substring(i, i+1).getBytes()[0]).toString().toLowerCase());
     	}
         //第一次向孔夫子旧书网 发送请求 获取查询结果
-        String queryResult=HttpRequest.sendGet("http://search.kongfz.com/product/y0z",rtn.append("/").toString());
+        String queryResult=HttpRequest.sendGet("http://search.kongfz.com/product/y0z"+rtn.append("/").toString(),null);
         //正则表达式对结果筛选 取第一个
         String first=StringRegexUntil.regexString(queryResult, "<div class=\"big_pic\">((?!</div>).)*</div>")[0];
         //第二次正则表达式 筛选出第一个结果
         String secondPath=StringRegexUntil.regexString(first, "href=\"http((?!\").)*\"")[0].replace("href=\"", "").replaceAll("\"", "");
         //第二次请求孔夫子旧书网 获取书本详情
-        queryResult=HttpRequest.sendGet(secondPath,"");
+        queryResult=HttpRequest.sendGet(secondPath,null);
         String bookAllInfo=StringRegexUntil.regexString(queryResult, "<div class=\"book_attr clearfix\">((?!(<div>((?!<div>).)*</div>)).)*</div>")[0];
         
         String bookName=null;

@@ -19,7 +19,7 @@ public class WechatTokenService {
 	public static String getAccessToken(){
 		String token=RedisManager.getValueByKeyAndGroup("GROUP_0", "access_token");
 		if(token==null){
-			String queryResult=HttpRequest.sendGet(access_tocke_url, "");
+			String queryResult=HttpRequest.sendGet(access_tocke_url, null);
 			Wechat rtn=JSON.parseObject(queryResult,Wechat.class);
 			//token的实效时间是7200s
 			token=rtn.getAccess_token();
@@ -36,7 +36,7 @@ public class WechatTokenService {
 		String jsapiTicket=RedisManager.getValueByKeyAndGroup("GROUP_0", "jsapi_ticket");
 		if(jsapiTicket==null){
 			jsapi_ticket_url=jsapi_ticket_url+getAccessToken()+"&type=jsapi";
-			String queryResult=HttpRequest.sendGet(jsapi_ticket_url, "");
+			String queryResult=HttpRequest.sendGet(jsapi_ticket_url, null);
 			Wechat rtn=JSON.parseObject(queryResult,Wechat.class);
 			jsapiTicket=rtn.getTicket();
 			RedisManager.setValueByKeyAndGroupSetTime("GROUP_0", "access_token", jsapiTicket, 7200);
