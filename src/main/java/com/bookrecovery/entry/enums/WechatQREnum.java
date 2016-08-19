@@ -2,7 +2,7 @@ package com.bookrecovery.entry.enums;
 
 public enum WechatQREnum {
 
-	ScannerBookInfo("scannerBookInfo","http://www.bookrecovery.cn/wechatMyself/H5.html","测试二维码接口");
+	ScannerBookInfo("scannerBookInfo","http://www.bookrecovery.cn/BookProject/","测试二维码接口");
 	final private String type;
 	final private String path;
 	final private String desc;

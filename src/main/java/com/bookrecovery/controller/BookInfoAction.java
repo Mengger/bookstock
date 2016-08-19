@@ -27,6 +27,7 @@ import com.bookrecovery.until.redis.load.RedisManager;
 
 import sun.misc.BASE64Decoder;  
 
+@SuppressWarnings("restriction")
 @Controller
 @RequestMapping
 public class BookInfoAction {
