@@ -1,271 +1,246 @@
 package com.bookrecovery.entry;
 
-import java.util.Date;
-
-/**
- * 图书属性表
- * @author jack
- *
- */
 public class BookInfo {
 
 	/**
-	 * 创建时间
-	 */
-	private Date infoCreateTime;
-	
+	*创建时间
+	*/
+	private java.util.Date infoCreateTime;
+
 	/**
-	 * 修改时间
-	 */
-	private Date infoModifyTime;
-	
+	*修改时间
+	*/
+	private java.util.Date infoModifyTime;
+
 	/**
-	 * 图书编号
-	 */
-	private Long bookId;
-	
+	*图书编号
+	*/
+	private String bookId;
+
 	/**
-	 * 编号协议(ISBN、ISSN、ISRC)
-	 */
+	*编号协议(1.ISBN、2.ISSN、3.ISRC)
+	*/
 	private String bookProtocl;
-	
+
 	/**
-	 * 图书名称
-	 */
+	*图书名称
+	*/
 	private String bookName;
-	
+
 	/**
-	 * 作者
-	 */
+	*作者
+	*/
 	private String author;
-	
+
 	/**
-	 * 出版社名称
-	 */
+	*出版社名称
+	*/
 	private String bookConcerm;
-	
+
 	/**
-	 * 图书状态(1.正常  0.停收)
-	 */
+	*图书状态(1.正常  0.停收 -1.待审核)
+	*/
 	private Integer status;
-	
+
 	/**
-	 * 图书类型id
-	 */
+	*图书类型id
+	*/
 	private String bookTypeId;
-	
+
 	/**
-	 * 定价(单位:分)
-	 */
+	*定价(单位:分)
+	*/
 	private Integer orderPrices;
 
 	/**
-	 * 二手书价(单位:分)
-	 */
+	*二手书价(单位:分)
+	*/
 	private Integer usedPrices;
-	
+
 	/**
-	 * 照片地址
-	 */
+	*照片地址
+	*/
 	private String photoPath;
-	
+
 	/**
-	 * 本地照片地址
-	 */
+	*本地FTP照片地址   FTP:/PATH/IMG(FTP代号:相对路径)
+	*/
 	private String localPhotoPath;
-	
+
 	/**
-	 * 页数
-	 */
+	*书本图片取值位置 0代表取别人的图片,1代表取自己FTP的
+	*/
+	private Integer photoUse;
+
+	/**
+	*页数
+	*/
 	private String pageNum;
 
 	/**
-	 * 雇员id
-	 */
-	private Long createrId;
-	
+	*雇员id
+	*/
+	private String createrId;
+
 	/**
-	 * 图书审核状态(1.已审核 0.待审核)
-	 */
+	*图书审核状态(1.已审核 0.待审核)
+	*/
 	private Integer infoStatus;
-	
+
 	/**
-	 * 创建方式(1.internet 2.employee)
-	 */
+	*创建方式(1.internet 2.employee)
+	*/
 	private Integer bookCreateWay;
-	
-	public Long getCreaterId() {
-		return createrId;
+
+
+	public void setInfoCreateTime(java.util.Date infoCreateTime){
+		this.infoCreateTime = infoCreateTime;
 	}
 
-	public void setCreaterId(Long createrId) {
-		this.createrId = createrId;
+	public java.util.Date getInfoCreateTime(){
+		return this.infoCreateTime;
 	}
 
-	public Integer getInfoStatus() {
-		return infoStatus;
+	public void setInfoModifyTime(java.util.Date infoModifyTime){
+		this.infoModifyTime = infoModifyTime;
 	}
 
-	public void setInfoStatus(Integer infoStatus) {
-		this.infoStatus = infoStatus;
+	public java.util.Date getInfoModifyTime(){
+		return this.infoModifyTime;
 	}
 
-	public Integer getBookCreateWay() {
-		return bookCreateWay;
+	public void setBookId(String bookId){
+		this.bookId = bookId;
 	}
 
-	public void setBookCreateWay(Integer bookCreateWay) {
-		this.bookCreateWay = bookCreateWay;
+	public String getBookId(){
+		return this.bookId;
 	}
 
-	public String getLocalPhotoPath() {
-		return localPhotoPath;
+	public void setBookProtocl(String bookProtocl){
+		this.bookProtocl = bookProtocl;
 	}
 
-	public void setLocalPhotoPath(String localPhotoPath) {
+	public String getBookProtocl(){
+		return this.bookProtocl;
+	}
+
+	public void setBookName(String bookName){
+		this.bookName = bookName;
+	}
+
+	public String getBookName(){
+		return this.bookName;
+	}
+
+	public void setAuthor(String author){
+		this.author = author;
+	}
+
+	public String getAuthor(){
+		return this.author;
+	}
+
+	public void setBookConcerm(String bookConcerm){
+		this.bookConcerm = bookConcerm;
+	}
+
+	public String getBookConcerm(){
+		return this.bookConcerm;
+	}
+
+	public void setStatus(Integer status){
+		this.status = status;
+	}
+
+	public Integer getStatus(){
+		return this.status;
+	}
+
+	public void setBookTypeId(String bookTypeId){
+		this.bookTypeId = bookTypeId;
+	}
+
+	public String getBookTypeId(){
+		return this.bookTypeId;
+	}
+
+	public void setOrderPrices(Integer orderPrices){
+		this.orderPrices = orderPrices;
+	}
+
+	public Integer getOrderPrices(){
+		return this.orderPrices;
+	}
+
+	public void setUsedPrices(Integer usedPrices){
+		this.usedPrices = usedPrices;
+	}
+
+	public Integer getUsedPrices(){
+		return this.usedPrices;
+	}
+
+	public void setPhotoPath(String photoPath){
+		this.photoPath = photoPath;
+	}
+
+	public String getPhotoPath(){
+		return this.photoPath;
+	}
+
+	public void setLocalPhotoPath(String localPhotoPath){
 		this.localPhotoPath = localPhotoPath;
 	}
 
-	public Date getInfoCreateTime() {
-		return infoCreateTime;
+	public String getLocalPhotoPath(){
+		return this.localPhotoPath;
 	}
 
-	public void setInfoCreateTime(Date infoCreateTime) {
-		this.infoCreateTime = infoCreateTime;
+	public void setPhotoUse(Integer photoUse){
+		this.photoUse = photoUse;
 	}
 
-	public Date getInfoModifyTime() {
-		return infoModifyTime;
+	public Integer getPhotoUse(){
+		return this.photoUse;
 	}
 
-	public void setInfoModifyTime(Date infoModifyTime) {
-		this.infoModifyTime = infoModifyTime;
-	}
-
-	public Long getBookId() {
-		return bookId;
-	}
-
-	public void setBookId(Long bookId) {
-		this.bookId = bookId;
-	}
-
-	public String getBookProtocl() {
-		return bookProtocl;
-	}
-
-	public void setBookProtocl(String bookProtocl) {
-		this.bookProtocl = bookProtocl;
-	}
-
-	public String getBookName() {
-		return bookName;
-	}
-
-	public void setBookName(String bookName) {
-		this.bookName = bookName;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public String getBookConcerm() {
-		return bookConcerm;
-	}
-
-	public void setBookConcerm(String bookConcerm) {
-		this.bookConcerm = bookConcerm;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	public String getBookTypeId() {
-		return bookTypeId;
-	}
-
-	public void setBookTypeId(String bookTypeId) {
-		this.bookTypeId = bookTypeId;
-	}
-
-	public Integer getOrderPrices() {
-		return orderPrices;
-	}
-
-	public void setOrderPrices(Integer orderPrices) {
-		this.orderPrices = orderPrices;
-	}
-
-	public Integer getUsedPrices() {
-		return usedPrices;
-	}
-
-	public void setUsedPrices(Integer usedPrices) {
-		this.usedPrices = usedPrices;
-	}
-
-	public String getPhotoPath() {
-		return photoPath;
-	}
-
-	public void setPhotoPath(String photoPath) {
-		this.photoPath = photoPath;
-	}
-
-	public String getPageNum() {
-		return pageNum;
-	}
-
-	public void setPageNum(String pageNum) {
+	public void setPageNum(String pageNum){
 		this.pageNum = pageNum;
 	}
 
-	private String id;
+	public String getPageNum(){
+		return this.pageNum;
+	}
+
+	public void setCreaterId(String createrId){
+		this.createrId = createrId;
+	}
+
+	public String getCreaterId(){
+		return this.createrId;
+	}
+
+	public void setInfoStatus(Integer infoStatus){
+		this.infoStatus = infoStatus;
+	}
+
+	public Integer getInfoStatus(){
+		return this.infoStatus;
+	}
+
+	public void setBookCreateWay(Integer bookCreateWay){
+		this.bookCreateWay = bookCreateWay;
+	}
+
+	public Integer getBookCreateWay(){
+		return this.bookCreateWay;
+	}
 	
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public BookInfo(Date infoCreateTime, Date infoModifyTime, Long bookId, String bookProtocl, String bookName,
-			String author, String bookConcerm, Integer status, String bookTypeId, Integer orderPrices,
-			Integer usedPrices, String photoPath, String pageNum,String localPhotoPath,Long createrId,Integer bookCreateWay,Integer infoStatus) {
-		super();
-		this.infoCreateTime = infoCreateTime;
-		this.infoModifyTime = infoModifyTime;
-		this.bookId = bookId;
-		this.bookProtocl = bookProtocl;
-		this.bookName = bookName;
-		this.author = author;
-		this.bookConcerm = bookConcerm;
-		this.status = status;
-		this.bookTypeId = bookTypeId;
-		this.orderPrices = orderPrices;
-		this.usedPrices = usedPrices;
-		this.photoPath = photoPath;
-		this.pageNum = pageNum;
-		this.localPhotoPath=localPhotoPath;
-		this.createrId=createrId;
-		this.bookCreateWay=bookCreateWay;
-		this.infoStatus=infoStatus;
-	}
-
 	public BookInfo() {
+		super();
 	}
-	
+
 	public BookInfo(BookInfo bookInfo) {
 		this.infoCreateTime = bookInfo.getInfoCreateTime();
 		this.infoModifyTime = bookInfo.getInfoModifyTime();
@@ -279,12 +254,12 @@ public class BookInfo {
 		this.orderPrices = bookInfo.getOrderPrices();
 		this.usedPrices = bookInfo.getUsedPrices();
 		this.photoPath = bookInfo.getPhotoPath();
+		this.localPhotoPath = bookInfo.getLocalPhotoPath();
+		this.photoUse = bookInfo.getPhotoUse();
 		this.pageNum = bookInfo.getPageNum();
-		this.localPhotoPath=bookInfo.getLocalPhotoPath();
-		this.createrId=bookInfo.getCreaterId();
-		this.bookCreateWay=bookInfo.getBookCreateWay();
-		this.infoStatus=bookInfo.getInfoStatus();
+		this.createrId = bookInfo.getCreaterId();
+		this.infoStatus = bookInfo.getInfoStatus();
+		this.bookCreateWay = bookInfo.getBookCreateWay();
 	}
-	
-}
 
+}

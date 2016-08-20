@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bookrecovery.dao.EmployeeDao;
+import com.bookrecovery.dao.EmployeeInfoDao;
 import com.bookrecovery.entry.EmployeeInfo;
 import com.bookrecovery.service.IemployeeInfoServiceImpl;
 
@@ -16,13 +16,13 @@ public class EmployeeInfoService implements IemployeeInfoServiceImpl {
 
 	private static final Logger log = LoggerFactory.getLogger(EmployeeInfoService.class);
 	@Autowired
-	public EmployeeDao employeeDao;
+	public EmployeeInfoDao employeeInfoDao;
 	
 	@Override
 	public List<EmployeeInfo> queryEmployeeInfoList(EmployeeInfo employee) {
 		List<EmployeeInfo> rtn=null;
 		try {
-			rtn=employeeDao.queryEmployInfoList(employee);
+			rtn=employeeInfoDao.queryEmployeeInfoList(employee);
 		} catch (Exception e) {
 			log.error("queryEmployeeInfoList error",e);
 		}

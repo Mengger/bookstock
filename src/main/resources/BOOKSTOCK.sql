@@ -4,7 +4,7 @@ create table book_info(
 	book_id BIGINT(15) not null PRIMARY KEY comment '图书编号', 
 	book_protocl varchar(5) CHARACTER SET utf8 comment '编号协议(1.ISBN、2.ISSN、3.ISRC)', 
 	book_name varchar(100) CHARACTER SET utf8 not null comment '图书名称', 
-	author varchar(20) CHARACTER SET utf8 comment '作者', 
+	author varchar(50) CHARACTER SET utf8 comment '作者', 
 	book_concerm  varchar(50) CHARACTER SET utf8 comment '出版社名称', 
 	status  Integer comment '图书状态(1.正常  0.停收 -1.待审核)', 
 	book_type_id varchar(10) CHARACTER SET utf8 comment '图书类型id', 

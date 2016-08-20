@@ -94,7 +94,7 @@ public class BookInfoAction {
 			return rtn;
 		}
 		BookInfo book=new BookInfo();
-		book.setBookId(bookid);
+		book.setBookId(String.valueOf(bookid));
 		book.setBookProtocl(bookProtocl);
 		book.setBookName(bookName);
 		book.setBookConcerm(bookConcern);

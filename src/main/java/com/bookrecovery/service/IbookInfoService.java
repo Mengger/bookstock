@@ -15,7 +15,7 @@ public interface IbookInfoService {
 	 * 在internet中查询书本详情
 	 * @return
 	 */
-	public BookInfo queryInternetByBookId(String id);
+	public BookInfo queryInternetByBookId(BookInfo bookInfo);
 	
 	/**
 	 * 先查数据库，如果没有，再爬虫 二手书网站

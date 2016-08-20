@@ -1,206 +1,175 @@
 package com.bookrecovery.entry;
 
-import java.util.Date;
-
-/**
- * 雇员信息
- * @author jack
- *
- */
 public class EmployeeInfo {
 
 	/**
-	 * 创建时间
-	 */
-	private Date createTime;
-	
+	*创建时间
+	*/
+	private java.util.Date createTime;
+
 	/**
-	 * 修改时间
-	 */
-	private Date modifyTime;
-	
+	*修改时间
+	*/
+	private java.util.Date modifyTime;
+
 	/**
-	 * 雇员id
-	 */
-	private String id ;
-	
+	*雇员id
+	*/
+	private String id;
+
 	/**
-	 * 雇员名字
-	 */
+	*雇员名字
+	*/
 	private String name;
-	
+
 	/**
-	 * 身份证号码
-	 */
+	*身份证号码
+	*/
 	private String idCard;
-	
+
 	/**
-	 * 出生地
-	 */
-	private String birthPlace ;
-	
+	*出生地
+	*/
+	private String birthPlace;
+
 	/**
-	 * 密码
-	 */
+	*密码
+	*/
 	private String pwd;
-	
+
 	/**
-	 * 经理id
-	 */
-	private String managerId ;
-	
+	*经理id
+	*/
+	private String managerId;
+
 	/**
-	 * 区域id
-	 */
-	private String areaId ;
-	
+	*区域id
+	*/
+	private String areaId;
+
 	/**
-	 * 学校id
-	 */
+	*学校id
+	*/
 	private String schoolId;
-	
+
 	/**
-	 * 图片
-	 */
+	*图片
+	*/
 	private String photoPath;
-	
+
 	/**
-	 * 身份证图片
-	 */
+	*身份证图片
+	*/
 	private String idCardPath;
-	
+
 	/**
-	 * 备注信息(地址)
-	 */
+	*备注信息(地址)
+	*/
 	private String info;
 
-	public Date getCreateTime() {
-		return createTime;
-	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(java.util.Date createTime){
 		this.createTime = createTime;
 	}
 
-	public Date getModifyTime() {
-		return modifyTime;
+	public java.util.Date getCreateTime(){
+		return this.createTime;
 	}
 
-	public void setModifyTime(Date modifyTime) {
+	public void setModifyTime(java.util.Date modifyTime){
 		this.modifyTime = modifyTime;
 	}
 
-	public String getId() {
-		return id;
+	public java.util.Date getModifyTime(){
+		return this.modifyTime;
 	}
 
-	public void setId(String id) {
+	public void setId(String id){
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getId(){
+		return this.id;
 	}
 
-	public void setName(String name) {
+	public void setName(String name){
 		this.name = name;
 	}
 
-	public String getIdCard() {
-		return idCard;
+	public String getName(){
+		return this.name;
 	}
 
-	public void setIdCard(String idCard) {
+	public void setIdCard(String idCard){
 		this.idCard = idCard;
 	}
 
-	public String getBirthPlace() {
-		return birthPlace;
+	public String getIdCard(){
+		return this.idCard;
 	}
 
-	public void setBirthPlace(String birthPlace) {
+	public void setBirthPlace(String birthPlace){
 		this.birthPlace = birthPlace;
 	}
 
-	public String getPwd() {
-		return pwd;
+	public String getBirthPlace(){
+		return this.birthPlace;
 	}
 
-	public void setPwd(String pwd) {
+	public void setPwd(String pwd){
 		this.pwd = pwd;
 	}
 
-	public String getManagerId() {
-		return managerId;
+	public String getPwd(){
+		return this.pwd;
 	}
 
-	public void setManagerId(String managerId) {
+	public void setManagerId(String managerId){
 		this.managerId = managerId;
 	}
 
-	public String getAreaId() {
-		return areaId;
+	public String getManagerId(){
+		return this.managerId;
 	}
 
-	public void setAreaId(String areaId) {
+	public void setAreaId(String areaId){
 		this.areaId = areaId;
 	}
 
-	public String getSchoolId() {
-		return schoolId;
+	public String getAreaId(){
+		return this.areaId;
 	}
 
-	public void setSchoolId(String schoolId) {
+	public void setSchoolId(String schoolId){
 		this.schoolId = schoolId;
 	}
 
-	public String getPhotoPath() {
-		return photoPath;
+	public String getSchoolId(){
+		return this.schoolId;
 	}
 
-	public void setPhotoPath(String photoPath) {
+	public void setPhotoPath(String photoPath){
 		this.photoPath = photoPath;
 	}
 
-	public String getIdCardPath() {
-		return idCardPath;
+	public String getPhotoPath(){
+		return this.photoPath;
 	}
 
-	public void setIdCardPath(String idCardPath) {
+	public void setIdCardPath(String idCardPath){
 		this.idCardPath = idCardPath;
 	}
 
-	public String getInfo() {
-		return info;
+	public String getIdCardPath(){
+		return this.idCardPath;
 	}
 
-	public void setInfo(String info) {
+	public void setInfo(String info){
 		this.info = info;
 	}
 
-	public EmployeeInfo() {
-		super();
-		// TODO Auto-generated constructor stub
+	public String getInfo(){
+		return this.info;
 	}
 
-	public EmployeeInfo(Date createTime, Date modifyTime, String id, String name, String idCard, String birthPlace,
-			String pwd, String managerId, String areaId, String schoolId, String photoPath, String idCardPath,
-			String info) {
-		super();
-		this.createTime = createTime;
-		this.modifyTime = modifyTime;
-		this.id = id;
-		this.name = name;
-		this.idCard = idCard;
-		this.birthPlace = birthPlace;
-		this.pwd = pwd;
-		this.managerId = managerId;
-		this.areaId = areaId;
-		this.schoolId = schoolId;
-		this.photoPath = photoPath;
-		this.idCardPath = idCardPath;
-		this.info = info;
-	}
-	
-	
 }
