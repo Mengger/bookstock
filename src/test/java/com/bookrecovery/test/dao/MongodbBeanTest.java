@@ -1,9 +1,7 @@
 package com.bookrecovery.test.dao;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,7 @@ public class MongodbBeanTest extends TestLoadBean {
 	@Test
 	public void testInsertInfo(){
 		BookInfo bean=new BookInfo();
-		bean.setBookId(1000000000L);
+		bean.setBookId("1000000000");
 		bean.setAuthor("lisi");
 		bean.setBookName("bookname");
 		bookInfoCache.insert(bean);

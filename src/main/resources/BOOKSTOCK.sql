@@ -39,14 +39,19 @@ create table employee_info(
 	name varchar(16) CHARACTER SET utf8  comment '雇员名字',
 	id_card varchar(20) comment '身份证号码',
 	birth_place varchar(150) CHARACTER SET utf8 comment '出生地',
+	birthday date comment  '出生日期',  
 	pwd varchar(20) comment '密码',
+	qq varchar(15) comment '企鹅号',
+	e_mail varchar(20) comment '邮箱',
+	telephone varchar(15) comment '手机号码',
+	is_real bit comment '是否通过实名认证',
 	manager_id varchar(5) comment '经理id',
 	area_id varchar(8) comment '区域id',
 	school_id varchar(8) comment '学校id',
 	photo_path varchar(150) comment '图片',
 	id_card_path varchar(150) comment '身份证图片',
 	info varchar(150) CHARACTER SET utf8 comment '备注信息(地址)'
-) comment '雇员信息表' DEFAULT CHARSET=utf8;;
+) comment '雇员信息表' DEFAULT CHARSET=utf8;
 
 create table school_info( 
 	create_time  date not null comment  '创建时间',  

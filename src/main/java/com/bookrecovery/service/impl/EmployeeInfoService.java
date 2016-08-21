@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.bookrecovery.dao.EmployeeInfoDao;
 import com.bookrecovery.entry.EmployeeInfo;
-import com.bookrecovery.service.IemployeeInfoServiceImpl;
+import com.bookrecovery.service.IemployeeInfoService;
 
 @Service(value="employeeInfoService")
-public class EmployeeInfoService implements IemployeeInfoServiceImpl {
+public class EmployeeInfoService implements IemployeeInfoService {
 
 	private static final Logger log = LoggerFactory.getLogger(EmployeeInfoService.class);
 	@Autowired

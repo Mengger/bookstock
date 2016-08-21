@@ -7,6 +7,7 @@ import org.junit.Test;
 import com.alibaba.fastjson.JSON;
 import com.bookrecovery.test.TestLoadBean;
 import com.bookrecovery.dao.BookInfoDao;
+import com.bookrecovery.entry.BookInfo;
 
 public class BookInfoDaoTest extends TestLoadBean{
 
@@ -15,7 +16,9 @@ public class BookInfoDaoTest extends TestLoadBean{
 	
 	@Test
 	public void testQueryBookInfoById(){
-		System.out.println(JSON.toJSON(bookInfoDao.queryBookInfoById("9787111212508")));
+		BookInfo bookInfo =new BookInfo();
+		bookInfo.setBookId("9787111212508");
+		System.out.println(JSON.toJSON(bookInfoDao.queryBookInfoList(bookInfo)));
 	}
 	
 }

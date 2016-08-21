@@ -15,7 +15,7 @@ public class EmployeeInfo {
 	/**
 	*雇员id
 	*/
-	private String id;
+	private Long id;
 
 	/**
 	*雇员名字
@@ -33,9 +33,34 @@ public class EmployeeInfo {
 	private String birthPlace;
 
 	/**
+	*出生日期
+	*/
+	private java.util.Date birthday;
+
+	/**
 	*密码
 	*/
 	private String pwd;
+
+	/**
+	*企鹅号
+	*/
+	private String qq;
+
+	/**
+	*邮箱
+	*/
+	private String eMail;
+
+	/**
+	*手机号码
+	*/
+	private String telephone;
+
+	/**
+	*是否通过实名认证
+	*/
+	private Boolean isReal;
 
 	/**
 	*经理id
@@ -84,11 +109,11 @@ public class EmployeeInfo {
 		return this.modifyTime;
 	}
 
-	public void setId(String id){
+	public void setId(Long id){
 		this.id = id;
 	}
 
-	public String getId(){
+	public Long getId(){
 		return this.id;
 	}
 
@@ -116,12 +141,52 @@ public class EmployeeInfo {
 		return this.birthPlace;
 	}
 
+	public void setBirthday(java.util.Date birthday){
+		this.birthday = birthday;
+	}
+
+	public java.util.Date getBirthday(){
+		return this.birthday;
+	}
+
 	public void setPwd(String pwd){
 		this.pwd = pwd;
 	}
 
 	public String getPwd(){
 		return this.pwd;
+	}
+
+	public void setQq(String qq){
+		this.qq = qq;
+	}
+
+	public String getQq(){
+		return this.qq;
+	}
+
+	public void setEMail(String eMail){
+		this.eMail = eMail;
+	}
+
+	public String getEMail(){
+		return this.eMail;
+	}
+
+	public void setTelephone(String telephone){
+		this.telephone = telephone;
+	}
+
+	public String getTelephone(){
+		return this.telephone;
+	}
+
+	public void setIsReal(Boolean isReal){
+		this.isReal = isReal;
+	}
+
+	public Boolean getIsReal(){
+		return this.isReal;
 	}
 
 	public void setManagerId(String managerId){

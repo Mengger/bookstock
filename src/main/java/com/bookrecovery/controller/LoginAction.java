@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.bookrecovery.entry.EmployeeInfo;
 import com.bookrecovery.entry.enums.ErrorCodeEnum;
 import com.bookrecovery.entry.result.SingleResultDO;
-import com.bookrecovery.service.IemployeeInfoServiceImpl;
+import com.bookrecovery.service.IemployeeInfoService;
 import com.bookrecovery.until.VerifyCodeUtils;
 import com.bookrecovery.until.redis.load.RedisManager;
 
@@ -29,7 +29,7 @@ public class LoginAction {
 	private static final Logger log = LoggerFactory.getLogger(LoginAction.class);
 	
 	@Autowired
-	public IemployeeInfoServiceImpl employeeInfoService;
+	public IemployeeInfoService employeeInfoService;
 	
 	@RequestMapping(method = RequestMethod.GET,value="/verifyCode")
 	public void GetImageStream(HttpServletRequest request, HttpServletResponse response){
@@ -73,10 +73,11 @@ public class LoginAction {
 		}
         String verifyTimes=session.getId()+"_verifyTimes";
         long times=RedisManager.getCountByKeyAndInc("GROUP_0", verifyTimes);
+        times=0;
         RedisManager.expire("GROUP_0", verifyTimes, 20*60);
         if(times<5){
         	EmployeeInfo employee=new EmployeeInfo();
-        	employee.setId(id);
+        	employee.setId(Long.valueOf(id));
         	employee.setPwd(pwd);
         	List<EmployeeInfo> result=employeeInfoService.queryEmployeeInfoList(employee);
         	if(result==null||result.size()==0){

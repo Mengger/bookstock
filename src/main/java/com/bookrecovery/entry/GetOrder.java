@@ -1,6 +1,14 @@
 package com.bookrecovery.entry;
 
+import java.util.Date;
+
+import com.bookrecovery.entry.result.PageRequest;
+
 public class GetOrder {
+	
+	private Date createBeginBefore;
+	private Date createBeginAfter;
+	private PageRequest pageRequest;
 
 	/**
 	*创建时间
@@ -131,6 +139,30 @@ public class GetOrder {
 
 	public Integer getStatus(){
 		return this.status;
+	}
+
+	public Date getCreateBeginBefore() {
+		return createBeginBefore;
+	}
+
+	public void setCreateBeginBefore(Date createBeginBefore) {
+		this.createBeginBefore = createBeginBefore;
+	}
+
+	public Date getCreateBeginAfter() {
+		return createBeginAfter;
+	}
+
+	public void setCreateBeginAfter(Date createBeginAfter) {
+		this.createBeginAfter = createBeginAfter;
+	}
+
+	public PageRequest getPageRequest() {
+		return pageRequest;
+	}
+
+	public void setPageRequest(PageRequest pageRequest) {
+		this.pageRequest = pageRequest;
 	}
 
 }

@@ -36,15 +36,21 @@ public class SessionFilter implements Filter {
 		HttpSession session = req.getSession(true);
 		SessionBean sessionBean=null;
 		String sessionId=null;
-		out:
-		for(Cookie cookie:req.getCookies()){
-			if("JSESSIONID".equals(cookie.getName())){
-				sessionId=cookie.getValue();
-				String value=RedisManager.getValueByKeyAndGroup("GROUP_0", "JSESSION_"+sessionId);
-				sessionBean=JSON.parseObject(value, new SessionBean().getClass());
-				break out;
-			}
+		Cookie []cookies=req.getCookies();
+		if(cookies!=null&&cookies.length>0){
+			out:
+				for(Cookie cookie:cookies){
+					if("JSESSIONID".equals(cookie.getName())){
+						sessionId=cookie.getValue();
+						String value=RedisManager.getValueByKeyAndGroup("GROUP_0", "JSESSION_"+sessionId);
+						sessionBean=JSON.parseObject(value, new SessionBean().getClass());
+						break out;
+					}
+				}
+		}else{
+			sessionId=req.getSession().getId();
 		}
+		
 		if(sessionBean==null){
 			//新会话,第一次会话
 			sessionBean=new SessionBean();
@@ -53,9 +59,6 @@ public class SessionFilter implements Filter {
 		}else{
 			//二次会话
 			sessionBean.getSession(req.getSession());
-		}
-		if(sessionId==null){
-			sessionId=req.getSession().getId();
 		}
 		// 判断如果没有取到用户信息,就跳转到登陆页面
 		/*if (username == null || "".equals(username)) {

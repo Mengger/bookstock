@@ -25,6 +25,10 @@ public interface EmployeeInfoDao {
 		+"<if test=\"idCard !=null \">and id_card = #{idCard} </if>"
 		+"<if test=\"birthPlace !=null \">and birth_place = #{birthPlace} </if>"
 		+"<if test=\"pwd !=null \">and pwd = #{pwd} </if>"
+		+"<if test=\"qq !=null \">and qq = #{qq} </if>"
+		+"<if test=\"eMail !=null \">and e_mail = #{eMail} </if>"
+		+"<if test=\"telephone !=null \">and telephone = #{telephone} </if>"
+		+"<if test=\"isReal !=null \">and is_real = #{isReal} </if>"
 		+"<if test=\"managerId !=null \">and manager_id = #{managerId} </if>"
 		+"<if test=\"areaId !=null \">and area_id = #{areaId} </if>"
 		+"<if test=\"schoolId !=null \">and school_id = #{schoolId} </if>"
@@ -41,6 +45,10 @@ public interface EmployeeInfoDao {
 		@Result(property="idCard",column="id_card"),
 		@Result(property="birthPlace",column="birth_place"),
 		@Result(property="pwd",column="pwd"),
+		@Result(property="qq",column="qq"),
+		@Result(property="eMail",column="e_mail"),
+		@Result(property="telephone",column="telephone"),
+		@Result(property="isReal",column="is_real"),
 		@Result(property="managerId",column="manager_id"),
 		@Result(property="areaId",column="area_id"),
 		@Result(property="schoolId",column="school_id"),
@@ -59,6 +67,10 @@ public interface EmployeeInfoDao {
 			+ "<if test=\"idCard !=null \"> id_card = #{idCard} ,</if>"
 			+ "<if test=\"birthPlace !=null \"> birth_place = #{birthPlace} ,</if>"
 			+ "<if test=\"pwd !=null \"> pwd = #{pwd} ,</if>"
+			+ "<if test=\"qq !=null \"> qq = #{qq} ,</if>"
+			+ "<if test=\"eMail !=null \"> e_mail = #{eMail} ,</if>"
+			+ "<if test=\"telephone !=null \"> telephone = #{telephone} ,</if>"
+			+ "<if test=\"isReal !=null \"> is_real = #{isReal} ,</if>"
 			+ "<if test=\"managerId !=null \"> manager_id = #{managerId} ,</if>"
 			+ "<if test=\"areaId !=null \"> area_id = #{areaId} ,</if>"
 			+ "<if test=\"schoolId !=null \"> school_id = #{schoolId} ,</if>"
@@ -72,8 +84,8 @@ public interface EmployeeInfoDao {
 
 	int updateEmployeeInfo(EmployeeInfo employeeInfo);
 
-	@Insert("insert into employee_info (create_time , modify_time , id , name , id_card , birth_place , pwd , manager_id , area_id , school_id , photo_path , id_card_path , info) "
-				+"values( #{createTime} , #{modifyTime} , #{id} , #{name} , #{idCard} , #{birthPlace} , #{pwd} , #{managerId} , #{areaId} , #{schoolId} , #{photoPath} , #{idCardPath} , #{info} )")
+	@Insert("insert into employee_info (create_time , modify_time , id , name , id_card , birth_place , pwd , qq , e_mail , telephone , is_real , manager_id , area_id , school_id , photo_path , id_card_path , info) "
+				+"values( #{createTime} , #{modifyTime} , #{id} , #{name} , #{idCard} , #{birthPlace} , #{pwd} , #{qq} , #{eMail} , #{telephone} , #{isReal} , #{managerId} , #{areaId} , #{schoolId} , #{photoPath} , #{idCardPath} , #{info} )")
 	int saveEmployeeInfo (EmployeeInfo employeeInfo);
 
 	@Delete("delete from employee_info where id = #{id}")

@@ -28,8 +28,11 @@ public interface GetOrderDao {
 		+"<if test=\"employeeId !=null \">and employee_id = #{employeeId} </if>"
 		+"<if test=\"bookCount !=null \">and book_count = #{bookCount} </if>"
 		+"<if test=\"status !=null \">and status = #{status} </if>"
+		+"<if test=\"createBeginBefore !=null \">and create_time <![CDATA[>]]> #{createBeginBefore} </if>"
+		+"<if test=\"createBeginAfter !=null \">and create_time <![CDATA[<]]> #{createBeginAfter} </if>"
+		+"order by create_time desc "
+		+"<if test=\"pageRequest !=null \">  limit #{pageRequest.size} offset #{pageRequest.page} </if>"
 	+"</script>")
-
 	@Results({
 		@Result(property="createTime",column="create_time"),
 		@Result(property="modifyTime",column="modify_time"),
@@ -44,6 +47,23 @@ public interface GetOrderDao {
 	})
 
 	List<GetOrder> queryGetOrderList(GetOrder getOrder);
+	
+	
+	@Select("<script>select count(1) as count from get_order where 1=1 "
+			+"<if test=\"orderId !=null \">and order_id = #{orderId} </if>"
+			+"<if test=\"createTime !=null \">and create_time = #{createTime} </if>"
+			+"<if test=\"modifyTime !=null \">and modify_time = #{modifyTime} </if>"
+			+"<if test=\"parentId !=null \">and parent_id = #{parentId} </if>"
+			+"<if test=\"bookId !=null \">and book_id = #{bookId} </if>"
+			+"<if test=\"bookPrices !=null \">and book_prices = #{bookPrices} </if>"
+			+"<if test=\"tip !=null \">and tip = #{tip} </if>"
+			+"<if test=\"employeeId !=null \">and employee_id = #{employeeId} </if>"
+			+"<if test=\"bookCount !=null \">and book_count = #{bookCount} </if>"
+			+"<if test=\"status !=null \">and status = #{status} </if>"
+			+"<if test=\"createBeginBefore !=null \">and create_time <![CDATA[>]]> #{createBeginBefore} </if>"
+			+"<if test=\"createBeginAfter !=null \">and create_time <![CDATA[<]]> #{createBeginAfter} </if>"
+		+"</script>")
+		Long queryGetOrderCount(GetOrder getOrder);
 
 	@Update("<script>update get_order "
 		+"<set>"
