@@ -32,9 +32,10 @@ public class OrderInfoAction {
 	public PageResultDO<GetOrder> getOrdersList(Integer inputLoginId,Long beginTime,Long endTime, int pageNum, int pageSize) throws Exception{
 		PageRequest pageRequest = null;
 		GetOrder getOrder = null;
-		PageResultDO<GetOrder> rtn=new PageResultDO<GetOrder>(pageRequest);
+		PageResultDO<GetOrder> rtn=null;
 		try {
 			pageRequest = new PageRequest(pageNum, pageSize);
+			rtn=new PageResultDO<GetOrder>(pageRequest);
 			getOrder=new GetOrder();
 			getOrder.setPageRequest(pageRequest);
 			getOrder.setEmployeeId(inputLoginId);

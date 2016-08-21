@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bookrecovery.entry.EmployeeInfo;
 import com.bookrecovery.entry.enums.ErrorCodeEnum;
@@ -51,7 +52,8 @@ public class LoginAction {
         }  
 	}
 	
-	@RequestMapping(value="/loginVerify")
+	@RequestMapping(method = RequestMethod.GET,value="/loginVerify")
+	@ResponseBody
 	public SingleResultDO<String> LoginVerify(HttpServletRequest request, HttpServletResponse response){
 		SingleResultDO<String> rtn=new SingleResultDO<String>();
 		String id=request.getParameter("inputLoginId");

@@ -240,11 +240,10 @@
 			    <source>1.6</source>  
 			    <target>1.6</target>  
 			    <encoding>utf8</encoding>   
-			    
-			    <compilerArguments>  
+			     <compilerArguments>  
 			        <verbose />  
 			        <bootclasspath>${java.home}/lib/rt.jar</bootclasspath>  
-			    </compilerArguments> 
+			    </compilerArguments>
 			  </configuration>  
 			</plugin>  
 		</plugins>
