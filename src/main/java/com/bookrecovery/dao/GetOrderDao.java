@@ -31,7 +31,7 @@ public interface GetOrderDao {
 		+"<if test=\"createBeginBefore !=null \">and create_time <![CDATA[>]]> #{createBeginBefore} </if>"
 		+"<if test=\"createBeginAfter !=null \">and create_time <![CDATA[<]]> #{createBeginAfter} </if>"
 		+"order by create_time desc "
-		+"<if test=\"pageRequest !=null \">  limit #{pageRequest.size} offset #{pageRequest.page} </if>"
+		+"<if test=\"pageRequest !=null \">  limit #{pageRequest.size} offset #{pageRequest.offset} </if>"
 	+"</script>")
 	@Results({
 		@Result(property="createTime",column="create_time"),

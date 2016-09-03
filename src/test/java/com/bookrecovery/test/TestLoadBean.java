@@ -24,7 +24,7 @@ import com.alibaba.fastjson.JSONObject;
 public class TestLoadBean {
 
 	
-	public static void main(String[] args) throws NoSuchAlgorithmException {
+	/*public static void main(String[] args) throws NoSuchAlgorithmException {
 		QueryResult<HashMap<String,ArrayList<GPRS>>> a=JSONObject.parseObject("{\"status\": \"0\",\"message\": \"正确\",\"result\": [{\"gprs\": [ {\"total\": \"100\",\"prodid\": \"I00010100029\",\"left\": \"20\",\"prodname\": \"GPRS10 元套餐\",\"used\": \"80\"},{\"total\": \"200\",\"prodid\": \"I00010100030\",\"left\": \"20\",\"prodname\": \"GPRS20 元套餐\",\"used\": \"180\"}]}]}",new QueryResult<HashMap<String,ArrayList<GPRS>>>().getClass());
 		System.out.println(a.getMessage());
 		List<HashMap<String,ArrayList<GPRS>>> b=(List<HashMap<String, ArrayList<GPRS>>>) a.getResult();
@@ -51,5 +51,5 @@ public class TestLoadBean {
 		
 		HashMap<String, ArrayList<GPRS>> c=b.get(0);
 		System.out.println(JSON.toJSONString(c));
-	}
+	}*/
 }
