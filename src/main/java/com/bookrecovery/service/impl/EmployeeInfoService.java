@@ -29,4 +29,14 @@ public class EmployeeInfoService implements IemployeeInfoService {
 		return rtn;
 	}
 
+	@Override
+	public boolean modifyEmployeeInfoById(EmployeeInfo employee) {
+		// TODO Auto-generated method stub
+		int result = employeeInfoDao.updateEmployeeInfo(employee);
+		if(result>0){
+			return true;
+		}
+		return false;
+	}
+
 }

@@ -42,8 +42,8 @@ public class SessionFilter implements Filter {
 				for(Cookie cookie:cookies){
 					if("JSESSIONID".equals(cookie.getName())){
 						sessionId=cookie.getValue();
-						String value=RedisManager.getValueByKeyAndGroup("GROUP_0", "JSESSION_"+sessionId);
-						sessionBean=JSON.parseObject(value, new SessionBean().getClass());
+						//String value=RedisManager.getValueByKeyAndGroup("GROUP_0", "JSESSION_"+sessionId);
+						//sessionBean=JSON.parseObject(value, new SessionBean().getClass());
 						break out;
 					}
 				}
@@ -73,7 +73,7 @@ public class SessionFilter implements Filter {
 		}*/
 		chain.doFilter(request, response);
 		sessionBean.setLastModifyTime(new Date().getTime());
-		RedisManager.setValueByKeyAndGroupSetTime("GROUP_0", "JSESSION_"+sessionBean.getSessionId(), JSON.toJSONString(sessionBean.UpdateSessionBean(session)),sessionBean.getMaxInactiveInterval());
+		//RedisManager.setValueByKeyAndGroupSetTime("GROUP_0", "JSESSION_"+sessionBean.getSessionId(), JSON.toJSONString(sessionBean.UpdateSessionBean(session)),sessionBean.getMaxInactiveInterval());
 	}
 
 	@Override

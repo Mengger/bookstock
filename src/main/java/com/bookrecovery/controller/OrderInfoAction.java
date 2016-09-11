@@ -1,6 +1,7 @@
 package com.bookrecovery.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -27,6 +28,16 @@ public class OrderInfoAction {
 	@Resource
 	private IGetOrderService getOrderService;
 	
+	/**
+	 * 获取订单详情列表
+	 * @param inputLoginId 用户id
+	 * @param beginTime		开始时间
+	 * @param endTime		结束时间
+	 * @param pageNum		第几页（从第0页开始）
+	 * @param pageSize		每页订单数量
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(method = RequestMethod.GET,value="/getOrders")
 	@ResponseBody
 	public PageResultDO<GetOrder> getOrdersList(Integer inputLoginId,Long beginTime,Long endTime, int pageNum, int pageSize) throws Exception{
@@ -50,5 +61,9 @@ public class OrderInfoAction {
 		rtn.setTotalElements(getOrderService.getGetOrderCount(getOrder));
 		rtn.setResult(getOrderService.getOrderList(getOrder));
 		return rtn;
+	}
+	
+	public void bookrecoveryInfo(List<String> bookCode,List<Integer> bookNum){
+		
 	}
 }

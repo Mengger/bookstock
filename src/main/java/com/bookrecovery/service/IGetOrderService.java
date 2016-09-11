@@ -19,4 +19,13 @@ public interface IGetOrderService {
 	 * @return
 	 */
 	public List<GetOrder> getOrderList(GetOrder getOrder);
+	
+	/**
+	 * 批量保存书本回收信息
+	 * @param bookInfo		书本编号
+	 * @param bookNum		回收数量
+	 * @param employeeId	雇员id
+	 * @return
+	 */
+	public boolean saveBookOrderList(List<String> bookIdList,List<Integer> bookCountList,Integer employeeId);
 }

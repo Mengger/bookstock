@@ -1,6 +1,9 @@
 package com.bookrecovery.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -92,6 +95,7 @@ public class LoginAction {
         		rtn.setErrorCode(ErrorCodeEnum.Count_Pwd_notMatch.getErrorCode());
         		rtn.setErrorDesc(ErrorCodeEnum.Count_Pwd_notMatch.getErrorMessage());
         	}else{
+        		request.setAttribute("userId", id);
         		rtn.setSuccess(true);
         		rtn.setErrorCode(ErrorCodeEnum.Success.getErrorCode());
         		rtn.setErrorDesc(ErrorCodeEnum.Success.getErrorMessage());
@@ -103,5 +107,100 @@ public class LoginAction {
         	rtn.setErrorDesc(ErrorCodeEnum.Outof_verifyTimes.getErrorMessage());
         }
         return rtn;
+	}
+	
+	/**
+	 * 修改用户信息
+	 * @param request
+	 * @param birthday	生日
+	 * @param eMail		邮箱
+	 * @param QQ		🐧号
+	 * @param telephone	手机号
+	 * @param name		名字
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/modifyEmployeeInfo")
+	public SingleResultDO<Boolean> modifyEmployeeInfo(HttpServletRequest request,Long birthday,String eMail,String QQ,
+			String telephone,String name){
+		SingleResultDO<Boolean> rtn = new SingleResultDO<Boolean>();
+		EmployeeInfo employee = new EmployeeInfo();
+		employee.setId((Long)request.getAttribute("userId"));
+		if(birthday!=null) employee.setBirthday(new Date(birthday));
+		if(QQ!=null&&QQ.length()>7) employee.setQq(QQ);
+		if(name!=null&&name.length()>0) employee.setName(name);
+		if(eMail!=null&&eMail.length()>0){
+			employee.setEMail(eMail);
+		}else{
+			rtn.setSuccess(false);
+			rtn.setResult(false);
+			rtn.setErrorCode(ErrorCodeEnum.Error_input.getErrorCode());
+			rtn.setErrorDesc(ErrorCodeEnum.Error_input.getErrorMessage());
+			return rtn;
+		}
+		boolean modifyResult = employeeInfoService.modifyEmployeeInfoById(employee);
+		rtn.setResult(modifyResult);
+		rtn.setErrorCode(ErrorCodeEnum.Success.getErrorCode());
+		rtn.setErrorDesc(ErrorCodeEnum.Success.getErrorMessage());
+		return rtn;
+	}
+	
+	
+	/**
+	 * 修改登陆密码
+	 * @param request
+	 * @param newPWD  新密码
+	 * @param oldPWD  老密码
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.POST,value="/modifyEmployeeInfo")
+	public SingleResultDO<Boolean> modifyPWD(HttpServletRequest request,String newPWD,String oldPWD){
+		SingleResultDO<Boolean> rtn = new SingleResultDO<Boolean>();
+		Long id = (Long)request.getAttribute("userId");
+		EmployeeInfo employee=new EmployeeInfo();
+    	employee.setId(id);
+    	employee.setPwd(oldPWD);
+    	List<EmployeeInfo> result=employeeInfoService.queryEmployeeInfoList(employee);
+    	if(result==null||result.size()==0){
+    		rtn.setResult(false);
+    		rtn.setSuccess(false);
+    		rtn.setErrorCode(ErrorCodeEnum.Count_Pwd_notMatch.getErrorCode());
+    		rtn.setErrorDesc(ErrorCodeEnum.Count_Pwd_notMatch.getErrorMessage());
+    	}else{
+    		employee.setPwd(newPWD);
+    		boolean modifyResult = employeeInfoService.modifyEmployeeInfoById(employee);
+    		rtn.setResult(modifyResult);
+    		rtn.setSuccess(true);
+    		rtn.setErrorCode(ErrorCodeEnum.Success.getErrorCode());
+    		rtn.setErrorDesc(ErrorCodeEnum.Success.getErrorMessage());
+    	}
+		return rtn;
+	}
+	
+	
+	/**
+	 * 修改图片
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/modifyHeadImg")
+	public SingleResultDO<Boolean> modifyHeadImg(HttpServletRequest request){
+	//	Long userId = (Long)request.getAttribute("userId");
+		try {
+			File a = new File("/Users/jack/Desktop/324342432");
+			FileOutputStream os =new FileOutputStream(a);
+			int i = request.getInputStream().available();
+			System.out.println("**************"+i);
+            byte data[] = new byte[i];
+			os.write(data);
+			os.flush();
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

@@ -37,6 +37,13 @@ public class BookInfoAction {
 	@Resource
 	private IbookInfoService bookInfoService;
 	
+	
+	/**
+	 * 获取图片流
+	 * @param ftpPath	ftp图片路径
+	 * @param request
+	 * @param response
+	 */
 	@RequestMapping(method = RequestMethod.GET,value="/imgStream")
 	public void GetImageStream(String ftpPath,HttpServletRequest request, HttpServletResponse response){
 		String []pathInfos=ftpPath.split(":");
@@ -55,6 +62,13 @@ public class BookInfoAction {
 		}
 	}
 	
+	
+	/**
+	 * 根据书本编码 查询书本信息
+	 * @param bookId 书本id
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST , value="/bookInfo")
 	@ResponseBody
 	public SingleResultDO<BookInfoVo> queryBookInfoById(String bookId,HttpServletRequest request){
@@ -79,6 +93,20 @@ public class BookInfoAction {
 		return rtn;
 	}
 	
+	
+	/**
+	 * 保存书本信息
+	 * @param bookId		书本id
+	 * @param bookProtocl	书本协议
+	 * @param bookName		书本名称
+	 * @param loaclPath		ftp照片地址
+	 * @param bookConcern	出版社
+	 * @param bookAuthor	作者
+	 * @param orderPrices	定价
+	 * @param bookPageNum	书本页数
+	 * @param bookPhotoPath	图片地址
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST , value="/saveInfo")
 	@ResponseBody
 	public SingleResultDO<String> saveBookInfo(String bookId,String bookProtocl,String bookName,String loaclPath,
@@ -126,6 +154,13 @@ public class BookInfoAction {
 		return rtn;
 	}
 	
+	
+	/**
+	 * 上传图书照片
+	 * @param base64	base64图片流
+	 * @param bookId	书本id
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST , value="/fileUploadBase64")
 	@ResponseBody
 	public SingleResultDO<String> fileUploadBase64(String base64,String bookId) {  
