@@ -57,8 +57,8 @@ public class LoginAction {
 	
 	@RequestMapping(method = RequestMethod.GET,value="/loginVerify")
 	@ResponseBody
-	public SingleResultDO<String> LoginVerify(HttpServletRequest request, HttpServletResponse response){
-		SingleResultDO<String> rtn=new SingleResultDO<String>();
+	public SingleResultDO<EmployeeInfo> LoginVerify(HttpServletRequest request, HttpServletResponse response){
+		SingleResultDO<EmployeeInfo> rtn=new SingleResultDO<EmployeeInfo>();
 		String id=request.getParameter("inputLoginId");
 		String pwd=request.getParameter("inputPassword");
 		String getVerifyCode=request.getParameter("verifyCode");
@@ -90,18 +90,18 @@ public class LoginAction {
         		if(times<5){
         			rtnTimes=(int) (5-times);
         		}
-        		rtn.setResult(String.valueOf(rtnTimes));
         		rtn.setSuccess(false);
         		rtn.setErrorCode(ErrorCodeEnum.Count_Pwd_notMatch.getErrorCode());
         		rtn.setErrorDesc(ErrorCodeEnum.Count_Pwd_notMatch.getErrorMessage());
         	}else{
         		request.setAttribute("userId", id);
         		rtn.setSuccess(true);
+        		result.get(0).setPwd("");
+        		rtn.setResult(result.get(0));
         		rtn.setErrorCode(ErrorCodeEnum.Success.getErrorCode());
         		rtn.setErrorDesc(ErrorCodeEnum.Success.getErrorMessage());
         	}
         }else{
-        	rtn.setResult("0");
         	rtn.setSuccess(false);
         	rtn.setErrorCode(ErrorCodeEnum.Outof_verifyTimes.getErrorCode());
         	rtn.setErrorDesc(ErrorCodeEnum.Outof_verifyTimes.getErrorMessage());
@@ -114,7 +114,7 @@ public class LoginAction {
 	 * @param request
 	 * @param birthday	生日
 	 * @param eMail		邮箱
-	 * @param QQ		🐧号
+	 * @param QQ		QQ号
 	 * @param telephone	手机号
 	 * @param name		名字
 	 * @return

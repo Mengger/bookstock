@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.bookrecovery.entry.BookInfo;
 import com.bookrecovery.until.HttpRequest;
 import com.bookrecovery.until.StringRegexUntil;
 
@@ -30,6 +31,10 @@ public class TestLoadBean {
 		
 		
 		
+	}
+	
+	
+	public void getImgPath(){
 		String url = "http://yezu6.top/L/?1";
 		String queryResult = HttpRequest.sendGet(url,null);
 		String[] first = StringRegexUntil.regexString(queryResult, "<a href=\"((?!</a>).)*\" target=\"_blank\">((?!</a>).)*</a>");
@@ -51,7 +56,5 @@ public class TestLoadBean {
 				
 			}
 		}
-		
-		
 	}
 }
