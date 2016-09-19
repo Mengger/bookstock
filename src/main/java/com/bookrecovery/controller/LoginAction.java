@@ -55,6 +55,36 @@ public class LoginAction {
         }  
 	}
 	
+	
+	@RequestMapping(method = RequestMethod.GET,value="/getEmployeeInfo")
+	@ResponseBody
+	public SingleResultDO<EmployeeInfo> getEmployeeInfo(HttpServletRequest request){
+		SingleResultDO<EmployeeInfo> rtn=new SingleResultDO<EmployeeInfo>();
+		String user = String.valueOf(request.getAttribute("userId"));
+		if(StringUtils.isBlank(user)){
+			rtn.setSuccess(false);
+			rtn.setErrorCode(ErrorCodeEnum.User_Not_Login.getErrorCode());
+    		rtn.setErrorDesc(ErrorCodeEnum.User_Not_Login.getErrorMessage());
+			return rtn;
+		}
+		Long userId = Long.valueOf(user);
+		EmployeeInfo employee=new EmployeeInfo();
+    	employee.setId(userId);
+    	List<EmployeeInfo> result=employeeInfoService.queryEmployeeInfoList(employee);
+    	if(result==null||result.size()==0){
+    		rtn.setSuccess(false);
+    		rtn.setErrorCode(ErrorCodeEnum.User_Not_Exit.getErrorCode());
+    		rtn.setErrorDesc(ErrorCodeEnum.User_Not_Exit.getErrorMessage());
+    	}else{
+    		rtn.setSuccess(true);
+    		result.get(0).setPwd("");
+    		rtn.setResult(result.get(0));
+    		rtn.setErrorCode(ErrorCodeEnum.Success.getErrorCode());
+    		rtn.setErrorDesc(ErrorCodeEnum.Success.getErrorMessage());
+    	}
+    	return rtn;
+	}
+	
 	@RequestMapping(method = RequestMethod.GET,value="/loginVerify")
 	@ResponseBody
 	public SingleResultDO<EmployeeInfo> LoginVerify(HttpServletRequest request, HttpServletResponse response){

@@ -202,7 +202,7 @@ function showBookInfo(){
 	}
 	$(".loading").show();
 	$.ajax({
-		url:"../bookInfo.action",
+		url:"bookInfo.action",
 		dataType: 'json',
 		data:{
 			bookId:$("#book_id").val()

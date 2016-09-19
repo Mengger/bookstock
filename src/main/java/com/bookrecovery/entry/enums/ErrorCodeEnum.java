@@ -7,6 +7,8 @@ public enum ErrorCodeEnum {
 	Sorry_info("sorry","后台开小差了，请稍后再试"),
 	Outof_verifyTimes("Outof_verifyTimes","20分钟内只能校验5次"),
 	Count_Pwd_notMatch("Count_Pwd_notMatch","账号密码不匹配"),
+	User_Not_Login("User_Not_Login","用户没登陆，请先登录"),
+	User_Not_Exit("User_Not_Exit","用户不存在"),
 	Verify_Code_error("Verify_Code_error","验证码不正确"),
 	Success("success","成功"),
 	Book_exit("bookinfo is exit","该书本信息已存在");
