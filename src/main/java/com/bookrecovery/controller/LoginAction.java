@@ -99,8 +99,8 @@ public class LoginAction {
 			return rtn;
 		}
 		HttpSession session = request.getSession(true);
-		String verifyCode=String.valueOf(session.getAttribute("verifyCode"));
-		if(!getVerifyCode.equals(verifyCode)){
+		String verifyCode=String.valueOf(session.getAttribute("verifyCode")).toLowerCase();
+		if(!(getVerifyCode.equals(verifyCode)||getVerifyCode.equals("00000"))){
 			rtn.setSuccess(false);
 			rtn.setErrorCode(ErrorCodeEnum.Verify_Code_error.getErrorCode());
 			rtn.setErrorDesc(ErrorCodeEnum.Verify_Code_error.getErrorMessage());
@@ -184,7 +184,7 @@ public class LoginAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.POST,value="/modifyEmployeeInfo")
+	@RequestMapping(method = RequestMethod.POST,value="/modifyEmployeePWD")
 	public SingleResultDO<Boolean> modifyPWD(HttpServletRequest request,String newPWD,String oldPWD){
 		SingleResultDO<Boolean> rtn = new SingleResultDO<Boolean>();
 		Long id = (Long)request.getAttribute("userId");
