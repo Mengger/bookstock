@@ -169,6 +169,7 @@ public class LoginAction {
 		if(QQ!=null&&QQ.length()>7) employee.setQq(QQ);
 		if(name!=null&&name.length()>0) employee.setName(name);
 		if(eMail!=null&&eMail.length()>0) employee.setEMail(eMail);
+		if(telephone!=null&&telephone.length()>0) employee.setTelephone(telephone);
 		boolean modifyResult = employeeInfoService.modifyEmployeeInfoById(employee);
 		rtn.setResult(modifyResult);
 		rtn.setErrorCode(ErrorCodeEnum.Success.getErrorCode());
