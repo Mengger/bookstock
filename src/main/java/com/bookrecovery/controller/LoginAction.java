@@ -60,8 +60,8 @@ public class LoginAction {
 	@ResponseBody
 	public SingleResultDO<EmployeeInfo> getEmployeeInfo(HttpServletRequest request){
 		SingleResultDO<EmployeeInfo> rtn=new SingleResultDO<EmployeeInfo>();
-		String user = String.valueOf(request.getAttribute("userId"));
-		if(StringUtils.isBlank(user)){
+		String user = String.valueOf(request.getSession(true).getAttribute("userId"));
+		if(StringUtils.isBlank(user)||"null".equals(user)){
 			rtn.setSuccess(false);
 			rtn.setErrorCode(ErrorCodeEnum.User_Not_Login.getErrorCode());
     		rtn.setErrorDesc(ErrorCodeEnum.User_Not_Login.getErrorMessage());
@@ -124,7 +124,7 @@ public class LoginAction {
         		rtn.setErrorCode(ErrorCodeEnum.Count_Pwd_notMatch.getErrorCode());
         		rtn.setErrorDesc(ErrorCodeEnum.Count_Pwd_notMatch.getErrorMessage());
         	}else{
-        		request.setAttribute("userId", id);
+        		session.setAttribute("userId", id);
         		rtn.setSuccess(true);
         		result.get(0).setPwd("");
         		rtn.setResult(result.get(0));
@@ -155,7 +155,16 @@ public class LoginAction {
 			String telephone,String name){
 		SingleResultDO<Boolean> rtn = new SingleResultDO<Boolean>();
 		EmployeeInfo employee = new EmployeeInfo();
-		employee.setId((Long)request.getAttribute("userId"));
+		String idString = String.valueOf(request.getSession(true).getAttribute("userId"));
+		if(StringUtils.isBlank(idString)||idString.equals("null")){
+			rtn.setResult(false);
+    		rtn.setSuccess(false);
+    		rtn.setErrorCode(ErrorCodeEnum.User_Not_Login.getErrorCode());
+    		rtn.setErrorDesc(ErrorCodeEnum.User_Not_Login.getErrorMessage());
+    		return rtn;
+		}
+		Long id =Long.valueOf(idString);
+		employee.setId(id);
 		if(birthday!=null) employee.setBirthday(new Date(birthday));
 		if(QQ!=null&&QQ.length()>7) employee.setQq(QQ);
 		if(name!=null&&name.length()>0) employee.setName(name);
@@ -179,7 +188,15 @@ public class LoginAction {
 	@RequestMapping(method = RequestMethod.POST,value="/modifyEmployeePWD")
 	public SingleResultDO<Boolean> modifyPWD(HttpServletRequest request,String newPWD,String oldPWD){
 		SingleResultDO<Boolean> rtn = new SingleResultDO<Boolean>();
-		Long id = (Long)request.getAttribute("userId");
+		String idString = String.valueOf(request.getSession(true).getAttribute("userId"));
+		if(StringUtils.isBlank(idString)||idString.equals("null")){
+			rtn.setResult(false);
+    		rtn.setSuccess(false);
+    		rtn.setErrorCode(ErrorCodeEnum.User_Not_Login.getErrorCode());
+    		rtn.setErrorDesc(ErrorCodeEnum.User_Not_Login.getErrorMessage());
+    		return rtn;
+		}
+		Long id =Long.valueOf(idString);
 		EmployeeInfo employee=new EmployeeInfo();
     	employee.setId(id);
     	employee.setPwd(oldPWD);
