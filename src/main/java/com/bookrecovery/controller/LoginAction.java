@@ -159,15 +159,7 @@ public class LoginAction {
 		if(birthday!=null) employee.setBirthday(new Date(birthday));
 		if(QQ!=null&&QQ.length()>7) employee.setQq(QQ);
 		if(name!=null&&name.length()>0) employee.setName(name);
-		if(eMail!=null&&eMail.length()>0){
-			employee.setEMail(eMail);
-		}else{
-			rtn.setSuccess(false);
-			rtn.setResult(false);
-			rtn.setErrorCode(ErrorCodeEnum.Error_input.getErrorCode());
-			rtn.setErrorDesc(ErrorCodeEnum.Error_input.getErrorMessage());
-			return rtn;
-		}
+		if(eMail!=null&&eMail.length()>0) employee.setEMail(eMail);
 		boolean modifyResult = employeeInfoService.modifyEmployeeInfoById(employee);
 		rtn.setResult(modifyResult);
 		rtn.setErrorCode(ErrorCodeEnum.Success.getErrorCode());

@@ -81,7 +81,7 @@ public class BookInfoAction {
 		try {
 			BookInfoVo bookInfo=bookInfoService.queryDBThenInterNet(bookId);
 			if(bookInfo.getBookCreateWay()!=null&&bookInfo.getBookCreateWay().equals(2)){
-				bookInfo.setLocalPhotoPath("../imgStream.action?ftpPath="+bookInfo.getLocalPhotoPath());
+				bookInfo.setLocalPhotoPath("imgStream.action?ftpPath="+bookInfo.getLocalPhotoPath());
 			}
 			rtn.setResult(bookInfo);
 		} catch (Exception e) {
