@@ -1,10 +1,6 @@
 package com.bookrecovery.test;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,12 +8,8 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.bookrecovery.entry.BookInfo;
 import com.bookrecovery.until.HttpRequest;
 import com.bookrecovery.until.StringRegexUntil;
-
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,7 +21,7 @@ public class TestLoadBean {
 	
 	public static void main(String[] args) throws NoSuchAlgorithmException {
 		
-		
+		new TestLoadBean().getImgPath();
 		
 	}
 	

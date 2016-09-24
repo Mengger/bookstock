@@ -1,8 +1,11 @@
 package com.bookrecovery.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +25,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bookrecovery.entry.EmployeeInfo;
 import com.bookrecovery.entry.enums.ErrorCodeEnum;
 import com.bookrecovery.entry.result.SingleResultDO;
 import com.bookrecovery.service.IemployeeInfoService;
+import com.bookrecovery.until.FtpUtil;
 import com.bookrecovery.until.VerifyCodeUtils;
+import com.bookrecovery.until.ftp.FTPFactory;
 import com.bookrecovery.until.redis.load.RedisManager;
 
 @Controller
@@ -225,22 +236,90 @@ public class LoginAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET,value="/modifyHeadImg")
+	@RequestMapping(method = RequestMethod.POST,value="/modifyHeadImg")
 	public SingleResultDO<Boolean> modifyHeadImg(HttpServletRequest request){
-	//	Long userId = (Long)request.getAttribute("userId");
+		SingleResultDO<Boolean> rtn=new SingleResultDO<Boolean>();
+		//转型为MultipartHttpRequest(重点的所在)  
+        MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;  
+        //  获得第1张图片（根据前台的name名称得到上传的文件）   
+        MultipartFile imgFile1  =  multipartRequest.getFile("file");  
+        String user = String.valueOf(request.getSession(true).getAttribute("userId"));
+		if(StringUtils.isBlank(user)||"null".equals(user)){
+			rtn.setSuccess(false);
+			rtn.setErrorCode(ErrorCodeEnum.User_Not_Login.getErrorCode());
+    		rtn.setErrorDesc(ErrorCodeEnum.User_Not_Login.getErrorMessage());
+			return rtn;
+		}
+		Long userId = Long.valueOf(user);
+		EmployeeInfo employee=new EmployeeInfo();
+    	employee.setId(userId);
+    	List<EmployeeInfo> result=employeeInfoService.queryEmployeeInfoList(employee);
+    	if(result==null||result.size()==0){
+    	}else{
+    		log.error("");
+    	}
+    	
 		try {
-			File a = new File("/Users/jack/Desktop/324342432");
+			String []pathInfos=result.get(0).getPhotoPath().split(":");
+			FtpUtil f = new FtpUtil();
+			f.connectServer(FTPFactory.FTPBeans.get(pathInfos[0]));
+			f.deleteFile(pathInfos[1]);
+			
+			ByteArrayInputStream in=new ByteArrayInputStream(imgFile1.getBytes());
+			boolean con=f.uploadFile(in,pathInfos[1]);
+			File a = new File("/Users/jack/Desktop/324342432.png");
+			/*imgFile1.transferTo(a);
 			FileOutputStream os =new FileOutputStream(a);
-			int i = request.getInputStream().available();
+			int i = imgFile1.getInputStream().available();
 			System.out.println("**************"+i);
             byte data[] = new byte[i];
 			os.write(data);
 			os.flush();
-			os.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			os.close();*/
+		} catch (Exception e) {
 			e.printStackTrace();
+			// TODO: handle exception
 		}
+		/* DiskFileItemFactory factory =
+                 new DiskFileItemFactory(1024 * 1024 * 5, new File(
+                         System.getProperty("java.io.tmpdir")));
+         // 设置缓冲区大小
+         factory.setSizeThreshold(1024 * 1024 * 5);
+         // 创建一个文件上传的句柄
+         ServletFileUpload upload = new ServletFileUpload(factory);
+
+         // 设置上传文件的整个大小和上传的单个文件大小
+         upload.setSizeMax(1024 * 1024 * 5 * 10);
+         upload.setFileSizeMax(1024 * 1024 * 5);
+         String[] MEDIA_FILE_EXTS = {"gif", "png", "jpeg", "jpg", "mp3", "amr", "wav"};
+         try {
+			List<FileItem> items = upload.parseRequest(request);
+			for (FileItem fileItem : items) {
+                // 如果是一个普通的表单元素(type不是file的表单元素)
+                if (fileItem.isFormField()) {
+                    String nameString = fileItem.getFieldName();
+                    System.out.println("******nameString********"+nameString);
+                } else { // 获取文件的后缀名
+                    String fileName = fileItem.getName();// 得到文件的名字
+                    System.out.println("******fileName********"+fileName);
+                    String fileExt =fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
+                    System.out.println("********fileExt******"+fileExt);
+                    if (Arrays.binarySearch(MEDIA_FILE_EXTS, fileExt) != -1) {
+                        try { // 将文件上传到项目的upload目录并命名，getRealPath可以得到该web项目下包含/upload的绝对路径//
+                            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+                            fileItem.write(new File("/Users/jack/Desktop/324342432"));
+                        } catch (Exception e) {
+                        	System.err.println(e);
+                        }
+                    } else {
+                        System.err.println("error:ext");
+                    }
+                }
+            }
+		} catch (FileUploadException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}*/
 		return null;
 	}
 }
