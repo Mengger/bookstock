@@ -28,8 +28,9 @@ public class TestLoadBean {
 
 	
 	public static void main(String[] args) throws NoSuchAlgorithmException {
-		
-		
+		String url = "http://localhost:8888/this/is/test";
+		String queryResult = HttpRequest.sendGet(url,null);
+		System.out.println(queryResult);
 		
 	}
 	
